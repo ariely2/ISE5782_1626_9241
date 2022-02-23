@@ -4,7 +4,7 @@ import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
-public class Cylinder  extends Tube implements Geometry{ //does it need to implement geometry?
+public class Cylinder  extends Tube implements Geometry{ //need to implement geometry?
     final double height;
 
     public Vector getNormal(Point a) {//need to have this here or is the one in tube enouogh?
