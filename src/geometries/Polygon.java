@@ -20,7 +20,7 @@ public class Polygon implements Geometry {
 	 * Associated plane in which the polygon lays
 	 */
 	protected Plane plane;
-	private int size;
+	private int size;//
 
 	/**
 	 * Polygon constructor based on vertices list. The list must be ordered by edge
