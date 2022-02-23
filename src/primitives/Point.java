@@ -1,10 +1,14 @@
 package primitives;
 
 public class Point {
-    final Double3 point;
+    final Double3 xyz;
 
     public Point(double d1, double d2, double d3) {
-        this.point = new Double3(d1, d2, d3);
+        this.xyz = new Double3(d1, d2, d3);
+    }
+
+    public Point(Double3 p) {
+        xyz = p;
     }
 
     @Override
@@ -12,25 +16,24 @@ public class Point {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Point other)) return false;
-        return this.point.equals(other.point);
+        return this.xyz.equals(other.xyz);
     }
 
     @Override
     public String toString() {
-        return "Point: " + point.toString();
+        return "Point: " +
+                "xyz=" + xyz.toString();
     }
 
     public Vector subtract(Point b){
-        Double3 c = point.subtract(b.point);
-        return new Vector(c.d1, c.d2, c.d3);
+        return new Vector(xyz.subtract(b.xyz));
     }
     public Point add(Point b){
-        Double3 c = point.add(b.point);
-        return new Point(c.d1, c.d2, c.d3);
+        return new Point(xyz.add(b.xyz));
     }
     public Double distanceSquared(Point a, Point b)
     {
-        Double3 c = a.point.subtract(b.point);
+        Double3 c = a.xyz.subtract(b.xyz);
         return c.d1*c.d1 + c.d2*c.d2 +c.d3*c.d3;
     }
     public Double distance(Point a, Point b)

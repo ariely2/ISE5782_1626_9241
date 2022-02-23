@@ -4,8 +4,8 @@ import primitives.Point;
 import primitives.Vector;
 
 public class Plane implements Geometry{
-    Point q0;
-    Vector normal;
+    final Point q0;
+    final Vector normal;
     Plane(Point a, Point b, Point c)
     {
         q0 = a;
@@ -33,8 +33,6 @@ public class Plane implements Geometry{
 
     @Override
     public String toString() {
-        return "Plane: " +
-                "Point=" + q0 +
-                ", Normal=" + normal;
+        return "Plane: " + q0.toString() + normal.toString();
     }
 }

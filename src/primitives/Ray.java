@@ -1,12 +1,12 @@
 package primitives;
 
 public class Ray {
-    Point point;
-    Vector vector;
+    final Point p0;
+    final Vector dir;
     Ray(Point p, Vector v)
     {
-        point = p;
-        vector = v.normalize();
+        p0 = p;
+        dir = v.normalize();
     }
 
     @Override
@@ -14,20 +14,20 @@ public class Ray {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Ray other)) return false;
-        return this.point.equals(other.point) && this.vector.equals(other.vector);
+        return this.p0.equals(other.p0) && this.dir.equals(other.dir);
     }
 
     @Override
     public String toString() {
-        return "Ray: " + point.toString() +
-                ", " + vector.toString();
+        return "Ray: " + p0.toString() +
+                ", " + dir.toString();
     }
 
-    public Vector getVector() {
-        return vector;
+    public Vector getDir() {
+        return dir;
     }
 
-    public Point getPoint() {
-        return point;
+    public Point getP0() {
+        return p0;
     }
 }
