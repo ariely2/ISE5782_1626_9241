@@ -28,7 +28,7 @@ public class Point {
     public Vector subtract(Point b){
         return new Vector(xyz.subtract(b.xyz));
     }
-    public Point add(Point b){
+    public Point add(Vector b){
         return new Point(xyz.add(b.xyz));
     }
     public Double distanceSquared(Point a, Point b)
