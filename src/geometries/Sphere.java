@@ -9,7 +9,7 @@ public class Sphere implements Geometry{
 
     @Override
     public Vector getNormal(Point a) {
-        return null;
+        return a.subtract(center).normalize();
     }
 
     public Sphere(Point c, double r) {

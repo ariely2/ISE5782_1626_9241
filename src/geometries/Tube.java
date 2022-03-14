@@ -8,7 +8,13 @@ public class Tube implements Geometry{
     final double radius;
     @Override
     public Vector getNormal(Point a) {
-        return null;
+        // according to the formula:
+        // t = v * (p - p0)
+        // o = p0 + t * v
+        // n = normalize(a - center)
+        double t = axisRay.getDir().dotProduct(a.subtract(axisRay.getP0()));
+        Point o = axisRay.getDir().scale(t).add(axisRay.getP0());
+        return a.subtract(o).normalize();
     }
     public Tube(Ray _ray, double _radius)
     {
