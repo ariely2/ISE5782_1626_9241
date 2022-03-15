@@ -9,22 +9,19 @@ public class Plane implements Geometry{
     final Vector normal;
     public Plane(Point a, Point b, Point c)
     {
+        if (a.equals(b) || a.equals(c) || b.equals(c))  //Two points are the same
+            throw new IllegalArgumentException("plane error: two points are the same");
         Vector ab = b.subtract(a);
         Vector bc = c.subtract(b);
         if (ab.normalize().equals(bc.normalize()))  //same line
         {
-            throw new IllegalArgumentException("plane error: to point on the same line");
-        }
-        else if (a.equals(b) || a.equals(c) || b.equals(c))  //same point
-        {
-            throw new IllegalArgumentException("plane error: to point the same");
+            throw new IllegalArgumentException("plane error: two points on the same line");
         }
         else
         {
             q0 = a;
-            normal = null;
+            normal = ab.crossProduct(bc).normalize();
         }
-
         /* Vector ab = a.subtract(b);
         Vector bc = b.subtract(c);
         normal = ab.crossProduct(bc).normalize(); */
@@ -37,10 +34,10 @@ public class Plane implements Geometry{
     }
     @Override
     public Vector getNormal(Point point) {
-        return normal; //correct?
+        return normal;
     }
     public Vector getNormal() {
-        return normal; //correct?
+        return normal;
     }
     public Point getPoint() {
         return q0; //correct?

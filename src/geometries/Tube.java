@@ -13,7 +13,9 @@ public class Tube implements Geometry{
         // o = p0 + t * v
         // n = normalize(a - center)
         double t = axisRay.getDir().dotProduct(a.subtract(axisRay.getP0()));
-        Point o = axisRay.getDir().scale(t).add((Vector) axisRay.getP0());
+        if(t==0)
+            return a.subtract(axisRay.getP0()).normalize();
+        Point o = axisRay.getP0().add(axisRay.getDir().scale(t));
         return a.subtract(o).normalize();
     }
     public Tube(Ray _ray, double _radius)

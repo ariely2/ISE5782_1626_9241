@@ -20,6 +20,6 @@ class SphereTests {
         // TC01: There is a simple single test here
         Sphere sp = new Sphere(new Point(1,2,3), 5);
         Point p1 = new Point(4, 2, 7);
-        assertEquals(p1.subtract(sp.getCenter()), sp.getNormal(p1));
+        assertEquals(new Vector(3.0/5, 0, 4.0/5), sp.getNormal(p1));
     }
 }

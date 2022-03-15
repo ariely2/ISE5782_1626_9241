@@ -17,9 +17,9 @@ class VectorTests {
     void subtract() {
         Vector v1 = new Vector(1, 2, 3);
         // ============ Equivalence Partitions Tests ==============
-        Vector v2 = new Vector(2, 1, 0);
+        Vector v2 = new Vector(4, 3, 5);
         Vector vr = v1.subtract(v2);
-        assertEquals(vr, new Vector(3,3,3));
+        assertEquals(vr, new Vector(-3,-1,-2));
         // =============== Boundary Values Tests ==================
         Vector v3 = new Vector(1,2,3);
         assertThrows(IllegalArgumentException.class, ()->v1.subtract(v3));
@@ -33,6 +33,7 @@ class VectorTests {
         Vector vr = v1.add(v2);
         assertEquals(vr, new Vector(3,3,3));
         // =============== Boundary Values Tests ==================
+        //TC11: Test for vector zero
         Vector v3 = new Vector(-1,-2,-3);
         assertThrows(IllegalArgumentException.class, ()->v1.add(v3));
     }
@@ -44,6 +45,7 @@ class VectorTests {
         Vector vr = v1.scale(2.0);
         assertEquals(vr, new Vector(2,4,6));
         // =============== Boundary Values Tests ==================
+        //TC11: Test for vector zero
         assertThrows(IllegalArgumentException.class, ()->v1.scale(0.0));
     }
 
@@ -55,6 +57,7 @@ class VectorTests {
         Double dr = v1.dotProduct(v2);
         assertEquals(dr, -28);
         // =============== Boundary Values Tests ==================
+        //TC11: Test for vector zero
         Vector v3 = new Vector(0, 3, -2);
         assertTrue(Util.isZero(v1.dotProduct(v3)));
     }
@@ -100,20 +103,15 @@ class VectorTests {
     void normalize() {
         Vector v1 = new Vector(1, 1, Math.sqrt(2));
         // ============ Equivalence Partitions Tests ==============
-        v1.normalize();
-        assertEquals(new Vector(0.5, 0.5, Math.sqrt(0.5)), v1);
+        assertEquals(new Vector(0.5, 0.5, Math.sqrt(0.5)), v1.normalize());
         // =============== Boundary Values Tests ==================
-        Vector v3 = new Vector(0.5, 0.5, Math.sqrt(0.5));
-        Vector v4 = new Vector(0.5, 0.5, Math.sqrt(0.5));
-        v3.normalize();
-        assertEquals(v4, v3);
-
-        final Vector v5 = new Vector(1, 2, 3);
-        final Vector v6 = v5.normalize();
-        assertEquals(v5.length(), 1);
-
-        assertThrows(IllegalArgumentException.class, () -> v5.crossProduct(v6));
-
-        assertFalse(v5.dotProduct(v6) < 0);
+         Vector v2 = new Vector(1, 2, 3);
+         Vector v3 = v2.normalize();
+        // TC11: test length of normalized vector
+        assertEquals(v3.length(), 1);
+        // TC12: test if normalized vector is parallel to original one
+        assertThrows(IllegalArgumentException.class, () -> v2.crossProduct(v3));
+        // TC13: test if normalized vector isn't opposite to original one
+        assertFalse(v2.dotProduct(v3) < 0);
     }
 }

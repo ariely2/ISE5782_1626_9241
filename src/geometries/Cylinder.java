@@ -8,15 +8,15 @@ public class Cylinder  extends Tube implements Geometry{ // does it need to impl
     final double height;
 
     public Vector getNormal(Point a) {
-        Double t = axisRay.getDir().dotProduct(axisRay.getP0().subtract(a));
-        Vector norman;
+        Double t = 0.0;
+        if(!a.equals(axisRay.getP0()))
+            t = axisRay.getDir().dotProduct(a.subtract(axisRay.getP0()));
         if(t == 0)
-            norman =  axisRay.getDir().scale((double) -1);
+            return axisRay.getDir().scale((double) -1);
         else if(t == height)
-            norman =  axisRay.getDir();
+            return axisRay.getDir();
         else
-            norman = super.getNormal(a); //ok?
-        return norman.normalize();
+            return super.getNormal(a); //ok?
     }
     public Cylinder(Ray _ray, double _radius, double _height)
     {

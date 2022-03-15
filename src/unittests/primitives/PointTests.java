@@ -33,11 +33,7 @@ class PointTests {
         Point p1 = new Point(1, 2, 3);
         // ============ Equivalence Partitions Tests ==============
         Vector v2 = new Vector(2, 1, 0);
-        Point pr = p1.add(v2);
-        assertEquals(pr, new Point(3,3,3));
-        // =============== Boundary Values Tests ==================
-        pr = p1.add(new Vector(-1,-2,-3));
-        assertEquals(pr, new Point(0,0,0));
+        assertEquals(p1.add(v2), new Point(3,3,3));
     }
 
     @Test
@@ -48,9 +44,8 @@ class PointTests {
         Double dr = p1.distanceSquared(p1, p2);
         assertEquals(dr, 11);
         // =============== Boundary Values Tests ==================
-        p2 = new Point(1,2,3);
-        dr = p1.distanceSquared(p1, p2);
-        assertEquals(dr, 0);
+        //TC11: Test for zero distance
+        assertEquals(p1.distanceSquared(p1, new Point(1,2,3)), 0);
     }
 
     @Test
@@ -61,8 +56,7 @@ class PointTests {
         Double dr = p1.distance(p1, p2);
         assertEquals(dr, Math.sqrt(11));
         // =============== Boundary Values Tests ==================
-        p2 = new Point(1,2,3);
-        dr = p1.distance(p1, p2);
-        assertEquals(dr, 0);
+        //TC11: Test for zero distance
+        assertEquals(p1.distance(p1, new Point(1,2,3)), 0);
     }
 }
