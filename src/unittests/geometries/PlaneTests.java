@@ -37,6 +37,6 @@ class PlaneTests {
     {
         // ============ Equivalence Partitions Tests ==============
         Plane plane = new Plane(new Point(0, 0, 0), new Point(0, 0, 1), new Point(0, 1, 0));
-        assertEquals(plane.getNormal(), new Vector(-1 , 0 ,0));
+        assertEquals(new Vector(-1 , 0 ,0), plane.getNormal());
     }
 }
