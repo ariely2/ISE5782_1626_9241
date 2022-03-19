@@ -2,7 +2,10 @@ package geometries;
 
 import primitives.Double3;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Plane implements Geometry{
     final Point q0;
@@ -46,5 +49,10 @@ public class Plane implements Geometry{
     @Override
     public String toString() {
         return "Plane: " + q0.toString() + normal.toString();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
