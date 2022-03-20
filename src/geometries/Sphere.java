@@ -36,6 +36,29 @@ public class Sphere implements Geometry{
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+
+        Vector u = center.subtract(ray.getP0());
+        double tm = u.dotProduct(ray.getDir());
+        double d = Math.sqrt(( u.length() * u.length() ) - ( tm * tm ));
+
+        if (d >= radius) { // if (d ≥ r) there are no intersections
+            return null;
+        }
+
+        double th = Math.sqrt(( u.length() * u.length() ) - d*d);
+        // two options
+        double t1 = tm + th;
+        double t2 = tm - th;
+
+        //add to point list
+        List<Point> cut = null;
+        if (t1 > 0) {
+            cut.add(ray.getP0().add( ray.getDir().scale(t1) ));
+        }
+        if (t2 > 0) {
+            cut.add(ray.getP0().add( ray.getDir().scale(t2) ));
+        }
+
+        return cut;
     }
 }
