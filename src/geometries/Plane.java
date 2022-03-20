@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Plane implements Geometry{
@@ -55,8 +56,9 @@ public class Plane implements Geometry{
         double t = numerator / denominator;
 
         if (t > 0){ //there is a point
-            Point cut = ray.getP0().add(ray.getDir().scale(t)); //according to the formula: p0 + t*v
-            return (List<Point>) cut;
+            List<Point> cut = new ArrayList<>();
+            cut.add(ray.getPoint(t)); //according to the formula: p0 + t*v
+            return cut;
         }
 
         return null; //not allowed t <= 0 because its ray

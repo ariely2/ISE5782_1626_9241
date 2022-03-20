@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.List;
+
 public class Cylinder extends Tube implements Geometry{ // does it need to implement geometry?
     final double height;
 
@@ -34,5 +36,9 @@ public class Cylinder extends Tube implements Geometry{ // does it need to imple
                 "height = " + height +
                 ", axisRay = " + axisRay.toString() +
                 ", radius = " + radius;
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

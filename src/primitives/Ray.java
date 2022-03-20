@@ -3,8 +3,8 @@ package primitives;
 public class Ray {
     final Point p0;
     final Vector dir;
-    public Ray(Point p, Vector v)
-    {
+
+    public Ray(Point p, Vector v) {
         p0 = p;
         dir = v.normalize();
     }
@@ -29,5 +29,10 @@ public class Ray {
 
     public Point getP0() {
         return p0;
+    }
+
+    public Point getPoint(double t)
+    {
+        return p0.add(dir.scale(t));
     }
 }

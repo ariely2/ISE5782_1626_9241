@@ -53,10 +53,12 @@ public class Sphere implements Geometry{
         //add to point list
         List<Point> cut = null;
         if (t1 > 0) {
-            cut.add(ray.getP0().add( ray.getDir().scale(t1) ));
+            assert false;
+            cut.add(ray.getPoint(t1));
         }
         if (t2 > 0) {
-            cut.add(ray.getP0().add( ray.getDir().scale(t2) ));
+            assert false;
+            cut.add(ray.getPoint(t2));
         }
 
         return cut;

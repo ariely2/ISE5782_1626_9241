@@ -3,6 +3,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 public class Tube implements Geometry{
     final Ray axisRay;
     final double radius;
@@ -36,5 +38,9 @@ public class Tube implements Geometry{
     public String toString() {
         return "Tube: " + axisRay.toString() +
                 ", radius=" + radius;
+    }
+
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
