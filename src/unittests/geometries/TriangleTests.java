@@ -3,9 +3,7 @@ package unittests.geometries;
 import geometries.Plane;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -30,9 +28,11 @@ class TriangleTests {
         List<Point> result = tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(1, -0.5, -1)));
         assertEquals(1, result.size());
         assertEquals(List.of(p1), result);
-        // TC02: Ray
+        // TC02: Ray intersects a point between continuances, of two edges that start at the same vertex
+        assertNull(tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1))));
 
-        // TC03: Ray
+        // TC03: Ray intersects a point between continuances that start at the same vertex
+        assertNull(tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(-2, -2, -1))));
 
         // =============== Boundary Values Tests ==================
         // TC11: Ray intersects one of the triangle's edges

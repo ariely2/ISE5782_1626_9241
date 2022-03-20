@@ -1,11 +1,8 @@
 package unittests.geometries;
 
 import geometries.Plane;
-import geometries.Polygon;
 import org.junit.jupiter.api.Test;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -58,7 +55,7 @@ class PlaneTests {
         // =============== Boundary Values Tests ==================
         // **** Group: Ray is parallel to the plane
         // TC11: Ray is included in the plane
-
+        assertNull(plane.findIntersections(new Ray(new Point(0, 0.5, 0), new Vector(0, 2, 1))));
 
         // TC12: Ray is not included in the plane
         assertNull(plane.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(0, 1,0))));
