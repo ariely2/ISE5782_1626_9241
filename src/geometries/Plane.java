@@ -15,9 +15,7 @@ public class Plane implements Geometry{
         Vector ab = b.subtract(a);
         Vector bc = c.subtract(b);
         if (ab.normalize().equals(bc.normalize()))  //same line
-        {
             throw new IllegalArgumentException("plane error: two points on the same line");
-        }
         else
         {
             q0 = a;

@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sphere implements Geometry{
@@ -36,31 +37,41 @@ public class Sphere implements Geometry{
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-
-        Vector u = center.subtract(ray.getP0());
-        double tm = u.dotProduct(ray.getDir());
-        double d = Math.sqrt(( u.length() * u.length() ) - ( tm * tm ));
-
-        if (d >= radius) { // if (d ≥ r) there are no intersections
-            return null;
+        double tm, d;
+        if(!center.equals(ray.getP0())) {
+            Vector u = center.subtract(ray.getP0());
+            tm = u.dotProduct(ray.getDir());
+            d = Math.sqrt((u.lengthSquared()) - (tm * tm));
+        }
+        else
+        {
+            tm = 0;
+            d = 0;
         }
 
-        double th = Math.sqrt(( u.length() * u.length() ) - d*d);
+        if (d >= radius) // if (d ≥ r) there are no intersections
+            return null;
+
+        double th = Math.sqrt((radius*radius) - d*d);
         // two options
         double t1 = tm + th;
         double t2 = tm - th;
 
         //add to point list
-        List<Point> cut = null;
+        List<Point> cut = new ArrayList<>();
+        boolean intersects = false;
         if (t1 > 0) {
-            assert false;
+            intersects = true;
             cut.add(ray.getPoint(t1));
         }
         if (t2 > 0) {
-            assert false;
+            intersects = true;
             cut.add(ray.getPoint(t2));
         }
 
-        return cut;
+        if(intersects)
+            return cut;
+
+        return null;
     }
 }
