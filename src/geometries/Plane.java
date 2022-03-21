@@ -51,7 +51,10 @@ public class Plane implements Geometry{
     public List<Point> findIntersections(Ray ray) {
         double numerator = normal.dotProduct(getPoint().subtract(ray.getP0()));
         double denominator = normal.dotProduct(ray.getDir());
-        double t = numerator / denominator;
+        double t = Util.alignZero(numerator / denominator);
+
+        if(Util.isZero(denominator))
+            return null;
 
         if (t > 0){ //there is a point
             List<Point> cut = new ArrayList<>();
