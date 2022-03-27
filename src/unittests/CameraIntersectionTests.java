@@ -46,7 +46,7 @@ class CameraIntersectionTests{
     void PlaneIntersections()
     {
         Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3,3);
-        Plane plane = new Plane(new Point(0, 0, -2), new Point(1, 0, -2), new Point(0, 1, -2));
+        Plane plane = new Plane(new Point(0, 5, -2), new Point(1, 0, -2), new Point(-1, 0, -2));
         assertEquals(9, numIntersections(plane, camera));
 
         plane = new Plane(new Point(1, 0, -10), new Point(-1, 0, -10), new Point(0, 10, 0));//tweak?

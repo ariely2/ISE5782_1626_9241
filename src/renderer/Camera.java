@@ -67,8 +67,12 @@ public class Camera {
         //calculate pixel [i ,j] center
         double yi = (-1 * (i - ((double)nY - 1)/2)) * Ry;
         double xj = (j - ((double)nX - 1)/2) * Rx;
-        Point Pij = center.add(right.scale(xj).add(up.scale(yi))); //pij = pc + (xj*right + yi*up)
 
+        Point Pij = center;
+        if (xj != 0)
+            Pij = Pij.add(right.scale(xj)); //pij = pc + (xj*right + yi*up)
+        if (yi != 0)
+            Pij = Pij.add(up.scale(yi));
         Vector Vij = Pij.subtract(location);
 
         return new Ray(location , Vij);
