@@ -18,13 +18,7 @@ class PlaneTests {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Correct plane creation
-        try {
-             new Plane(new Point(0, 0, 0), new Point(0, 0, 1), new Point(0, 1, 0));
-        }
-        catch (IllegalArgumentException e) {
-            fail("Failed constructing a correct plane");
-        }
-
+        assertDoesNotThrow(()->new Plane(new Point(0, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1)));
         // =============== Boundary Values Tests ==================
 
         // TC11: two points are the same
