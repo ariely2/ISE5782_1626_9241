@@ -59,4 +59,9 @@ public class Camera {
     public Ray constructRay(int nX, int nY, int j, int i){
         return null;
     }
+
+    public Camera setVPDistance(double distance) {
+        this.viewPlaneDis = distance;
+        return this;
+    }
 }
