@@ -73,4 +73,9 @@ public class Camera {
 
         return new Ray(location , Vij);
     }
+
+    public Camera setVPDistance(double distance) {
+        this.viewPlaneDis = distance;
+        return this;
+    }
 }
