@@ -48,6 +48,7 @@ public class Camera {
             throw new IllegalArgumentException();
         this.to = to.normalize();
         this.up = up.normalize();
+        this.right = to.crossProduct(up);
 
     }
 
@@ -57,6 +58,19 @@ public class Camera {
         return this;
     }
     public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
+        Point center = location.add(to.scale(viewPlaneDis));
+
+        //calculate Ratio
+        double Ry = height/nY;
+        double Rx = width/nX;
+
+        //calculate pixel [i ,j] center
+        double yi = (-1 * (i - ((double)nY - 1)/2)) * Ry;
+        double xj = (j - ((double)nX - 1)/2) * Rx;
+        Point Pij = center.add(right.scale(xj).add(up.scale(yi))); //pij = pc + (xj*right + yi*up)
+
+        Vector Vij = Pij.subtract(location);
+
+        return new Ray(location , Vij);
     }
 }
