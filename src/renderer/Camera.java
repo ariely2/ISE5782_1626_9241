@@ -12,6 +12,8 @@ public class Camera {
     private double height;
     private double width;
     private double viewPlaneDis;
+    private ImageWriter imageWrite;
+    private RayTracerBase rayTracer;
 
     public Point getLocation() {
         return location;
@@ -39,6 +41,32 @@ public class Camera {
 
     public double getViewPlaneDis() {
         return viewPlaneDis;
+    }
+
+    public Camera setImageWrite(ImageWriter imageWrite) {
+        this.imageWrite = imageWrite;
+        return this;
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
+    }
+
+    public Camera renderImage(){
+
+        if (this.location == null ||
+                this.to == null ||
+                this.up == null ||
+                this.right == null ||
+                this.imageWrite == null ||
+                this.height == 0 ||
+                this.width == 0 ||
+                this.viewPlaneDis == 0 ||
+                this.rayTracer == null) // if one of the objects is Empty
+            throw new UnsupportedOperationException();
+
+        return null;
     }
 
     public Camera(Point location, Vector to, Vector up){
@@ -69,10 +97,13 @@ public class Camera {
         double xj = (j - ((double)nX - 1)/2) * Rx;
 
         Point Pij = center;
+
+        //pij = pc + (xj*right + yi*up)
         if (xj != 0)
-            Pij = Pij.add(right.scale(xj)); //pij = pc + (xj*right + yi*up)
+            Pij = Pij.add(right.scale(xj));
         if (yi != 0)
             Pij = Pij.add(up.scale(yi));
+
         Vector Vij = Pij.subtract(location);
 
         return new Ray(location , Vij);
