@@ -35,7 +35,7 @@ class CameraIntersectionTests{
     void TriangleIntersections()
     {
         Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3,3);
-        Triangle tr = new Triangle(new Point(0, 1, 2), new Point(1, -1, -2), new Point(-1, -1, -2));
+        Triangle tr = new Triangle(new Point(0, 1, -2), new Point(1, -1, -2), new Point(-1, -1, -2));
         assertEquals(1, numIntersections(tr, camera));
 
         tr = new Triangle(new Point(0, 20, -2), new Point(1, -1, -2), new Point(-1, -1, -2));
@@ -46,10 +46,10 @@ class CameraIntersectionTests{
     void PlaneIntersections()
     {
         Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3,3);
-        Plane plane = new Plane(new Point(0, 5, -2), new Point(1, 0, -2), new Point(-1, 0, -2));
+        Plane plane = new Plane(new Point(0, 5, 0), new Point(1, 0, -2), new Point(-1, 0, -2));
         assertEquals(9, numIntersections(plane, camera));
 
-        plane = new Plane(new Point(1, 0, -10), new Point(-1, 0, -10), new Point(0, 10, 0));//tweak?
+        plane = new Plane(new Point(1, 0, -10), new Point(-1, 0, -10), new Point(0, 20, 0));//tweak?
         assertEquals(9, numIntersections(plane, camera));
 
         plane = new Plane(new Point(1, 0, -10), new Point(-1, 0, -10), new Point(0, 5, 0)); //tweak?
@@ -71,8 +71,8 @@ class CameraIntersectionTests{
         assertEquals(10, numIntersections(sphere, camera));
 
         camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3,3);
-        sphere = new Sphere(new Point (0, 0, -1), 4); //works?
-        assertEquals(10, numIntersections(sphere, camera));
+        sphere = new Sphere(new Point (0, 0, -2), 4); //works?
+        assertEquals(9, numIntersections(sphere, camera));
 
         sphere = new Sphere(new Point (0, 0,1), 0.5);
         assertEquals(0, numIntersections(sphere, camera));

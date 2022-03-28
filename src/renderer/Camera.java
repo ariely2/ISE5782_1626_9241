@@ -1,8 +1,11 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.MissingResourceException;
 
 public class Camera {
     private Point location;
@@ -43,7 +46,7 @@ public class Camera {
         return viewPlaneDis;
     }
 
-    public Camera setImageWrite(ImageWriter imageWrite) {
+    public Camera setImageWriter(ImageWriter imageWrite) {
         this.imageWrite = imageWrite;
         return this;
     }
@@ -53,31 +56,49 @@ public class Camera {
         return this;
     }
 
-    public Camera renderImage(){
+    public void renderImage(){
+        if (this.location == null || this.to == null || this.up == null ||
+                this.right == null || this.imageWrite == null || this.height == 0 ||
+                this.width == 0 || this.viewPlaneDis == 0 || this.rayTracer == null) // if one of the fields is Empty
+            throw new MissingResourceException("a field is empty", "Camera", "");
 
-        if (this.location == null ||
-                this.to == null ||
-                this.up == null ||
-                this.right == null ||
-                this.imageWrite == null ||
-                this.height == 0 ||
-                this.width == 0 ||
-                this.viewPlaneDis == 0 ||
-                this.rayTracer == null) // if one of the objects is Empty
-            throw new UnsupportedOperationException();
-
-        return null;
+        for(int i = 0; i<imageWrite.getNx();i++) {
+            for (int j = 0; j < imageWrite.getNy(); j++) {
+               Ray toPixel = constructRay(imageWrite.getNx(), imageWrite.getNy(), i, j);
+               Color color = rayTracer.traceRay(toPixel); //get color
+               imageWrite.writePixel(i, j, color);
+            }
+        }
     }
 
-    public Camera(Point location, Vector to, Vector up){
+    public void printGrid(int interval, Color color)
+    {
+        if(imageWrite == null)
+            throw new MissingResourceException("Image Writer is null", "ImageWriter", "imageWrite");
+        for(int i = 0; i<imageWrite.getNx();i++) {
+            for (int j = 0; j < imageWrite.getNy(); j++) {
+                if (i % interval == 0 || j % interval == 0) //if we are on one of the grid's lines
+                    imageWrite.writePixel(i, j, color); //paint the pixel in grid color
+            }
+        }
+        //return something?
+    }
 
+    public void writeToImage()
+    {
+        if(imageWrite == null)
+            throw new MissingResourceException("Image Writer is null", "ImageWriter", "imageWrite");
+        imageWrite.writeToImage();
+    }
+
+
+    public Camera(Point location, Vector to, Vector up){
         this.location = location;
         if (to.dotProduct(up) != 0) //if vectors not vertical
             throw new IllegalArgumentException();
         this.to = to.normalize();
         this.up = up.normalize();
         this.right = to.crossProduct(up);
-
     }
 
     public Camera setVPSize(double width, double height){
@@ -85,6 +106,15 @@ public class Camera {
         this.width = width;
         return this;
     }
+
+    /**
+     * creates a ray from camera to pixel on view plane
+     * @param nX num horizontal pixels
+     * @param nY num vertical pixels
+     * @param j horizontal index (num of column)
+     * @param i vertical index (num of row)
+     * @return Ray to pixel
+     */
     public Ray constructRay(int nX, int nY, int j, int i){
         Point center = location.add(to.scale(viewPlaneDis));
 

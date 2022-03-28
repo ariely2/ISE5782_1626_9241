@@ -10,9 +10,8 @@ public class ImageWriterTest {
     void testWriteImage()
     {
         ImageWriter photo = new ImageWriter("pic_1", 800, 500);
-        for(int i = 0; i<800;i++)
-        {
-            for(int j = 0; j<500; j++) {
+        for(int i = 0; i<800;i++) {
+            for (int j = 0; j < 500; j++) {
                 if (i % 50 == 0 || j % 50 == 0)
                     photo.writePixel(i, j, Color.BLACK);
                 else
