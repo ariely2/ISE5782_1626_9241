@@ -63,11 +63,8 @@ public class Camera {
             throw new MissingResourceException("a field is empty", "Camera", "");
 
         for(int i = 0; i<imageWrite.getNx();i++) {
-            for (int j = 0; j < imageWrite.getNy(); j++) {
-               Ray toPixel = constructRay(imageWrite.getNx(), imageWrite.getNy(), i, j);
-               Color color = rayTracer.traceRay(toPixel); //get color
-               imageWrite.writePixel(i, j, color);
-            }
+            for (int j = 0; j < imageWrite.getNy(); j++)
+               imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
         }
     }
 
@@ -142,5 +139,11 @@ public class Camera {
     public Camera setVPDistance(double distance) {
         this.viewPlaneDis = distance;
         return this;
+    }
+
+    private Color castRay(int Nx, int Ny, int i, int j)
+    {
+        Ray toPixel = constructRay(Nx, Ny, i, j);
+        return rayTracer.traceRay(toPixel); //return color
     }
 }
