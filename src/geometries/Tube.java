@@ -5,9 +5,10 @@ import primitives.Vector;
 
 import java.util.List;
 
-public class Tube implements Geometry{
+public class Tube extends Geometry{
     final Ray axisRay;
     final double radius;
+
     @Override
     public Vector getNormal(Point a) {
         // according to the formula:
@@ -40,7 +41,8 @@ public class Tube implements Geometry{
                 ", radius=" + radius;
     }
 
-    public List<Point> findIntersections(Ray ray) {
+    @Override
+    public List<Point> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
 }

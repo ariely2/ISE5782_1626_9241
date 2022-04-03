@@ -5,7 +5,7 @@ import primitives.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plane implements Geometry{
+public class Plane extends Geometry{
     final Point q0;
     final Vector normal;
     public Plane(Point a, Point b, Point c)
@@ -48,7 +48,7 @@ public class Plane implements Geometry{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findGeoIntersectionsHelper(Ray ray) {
         double numerator = normal.dotProduct(getPoint().subtract(ray.getP0()));
         double denominator = normal.dotProduct(ray.getDir());
         double t = Util.alignZero(numerator / denominator);

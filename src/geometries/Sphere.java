@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sphere implements Geometry{
+public class Sphere extends Geometry{
     final Point center;
     final double radius;
 
@@ -36,7 +36,7 @@ public class Sphere implements Geometry{
                 ", radius=" + radius;
     }
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findGeoIntersectionsHelper(Ray ray) {
         double tm, d;
         if(!center.equals(ray.getP0())) {
             Vector u = center.subtract(ray.getP0());

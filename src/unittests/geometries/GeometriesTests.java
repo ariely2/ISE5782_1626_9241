@@ -24,23 +24,23 @@ class GeometriesTests {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray intersects some of the geometries
-        List<Point> result = geometries.findIntersections(new Ray(new Point(1.5, 0, 1), new Vector(0, 0.5, -1)));
+        List<Point> result = geometries.findGeoIntersectionsHelper(new Ray(new Point(1.5, 0, 1), new Vector(0, 0.5, -1)));
         assertEquals(3, result.size()); // 2 with sphere, 1 with plane, 0 with triangle
 
         // =============== Boundary Values Tests ==================
         // TC11: Ray intersects one geometry
-        result = geometries.findIntersections(new Ray(new Point(2.5, 0, 1), new Vector(0, 0.5, -1)));
+        result = geometries.findGeoIntersectionsHelper(new Ray(new Point(2.5, 0, 1), new Vector(0, 0.5, -1)));
         assertEquals(1, result.size());
 
         // TC12: Ray intersects all geometries
-        result = geometries.findIntersections(new Ray(new Point(0.5, 0, 1), new Vector(0, 0.5, -1)));
+        result = geometries.findGeoIntersectionsHelper(new Ray(new Point(0.5, 0, 1), new Vector(0, 0.5, -1)));
         assertEquals(3, result.size());
 
         // TC13: Ray intersects no geometries
-        assertNull(geometries.findIntersections(new Ray(new Point(0, 0.5, 0), new Vector(-1, 0, 2))));
+        assertNull(geometries.findGeoIntersectionsHelper(new Ray(new Point(0, 0.5, 0), new Vector(-1, 0, 2))));
 
         // TC13: Ray intersects no geometries (empty composite)
         geometries = new Geometries();
-        assertNull(geometries.findIntersections(new Ray(new Point(0, 1, 0), new Vector(1, 0, -1))));
+        assertNull(geometries.findGeoIntersectionsHelper(new Ray(new Point(0, 1, 0), new Vector(1, 0, -1))));
     }
 }

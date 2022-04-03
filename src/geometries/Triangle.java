@@ -13,9 +13,10 @@ public class Triangle extends Polygon{
     public Triangle(Point a, Point b, Point c) {
         super(a, b, c);
     }
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        if (plane.findIntersections(ray) == null) // if it's not cut the plane its don't cut the Triangle
+    public List<Point> findGeoIntersectionsHelper(Ray ray) {
+        if (plane.findGeoIntersectionsHelper(ray) == null) // if it's not cut the plane its don't cut the Triangle
             return null;
 
         Vector v1 = vertices.get(0).subtract(ray.getP0());
@@ -31,12 +32,12 @@ public class Triangle extends Polygon{
         if (ray.getDir().dotProduct(n1) < 0 &&
                 ray.getDir().dotProduct(n2) < 0 &&
                 ray.getDir().dotProduct(n3) < 0) // if its same sign
-            return plane.findIntersections(ray);
+            return plane.findGeoIntersectionsHelper(ray);
 
         else if (ray.getDir().dotProduct(n1) > 0 &&
                 ray.getDir().dotProduct(n2) > 0 &&
                 ray.getDir().dotProduct(n3) > 0 ) // if its same sign
-            return plane.findIntersections(ray);
+            return plane.findGeoIntersectionsHelper(ray);
 
         return null;
     }

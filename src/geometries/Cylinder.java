@@ -6,7 +6,7 @@ import primitives.Ray;
 
 import java.util.List;
 
-public class Cylinder extends Tube implements Geometry{ // does it need to implement geometry?
+public class Cylinder extends Tube { // does it need to implement geometry?
     final double height;
 
     public Vector getNormal(Point a) {
