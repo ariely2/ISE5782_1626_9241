@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Material;
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
@@ -31,7 +28,17 @@ public abstract class Geometry extends Intersectable {
         return this;
     }
 
-
-
     public abstract Vector getNormal(Point a);
+
+    public Double3 getKd() {
+        return material.kD;
+    }
+
+    public Double3 getKs() {
+        return material.kS;
+    }
+
+    public int getShininess() {
+        return material.nShininess;
+    }
 }

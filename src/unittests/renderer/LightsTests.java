@@ -132,4 +132,48 @@ public class LightsTests {
         camera2.writeToImage(); //
     }
 
+    /**
+     * Produce a picture of a triangle lighted by all lights
+     */
+    @Test
+    public void triangleAll() {
+        Geometry triangle3 = new Triangle
+                (new Point(-100, -70, -150),
+                new Point(70, 110, -150),
+                new Point(-75, 85, -150)).setMaterial(material);
+
+        scene2.geometries.add(triangle1, triangle3);
+
+        scene2.lights.add(new PointLight(new Color(0, 500, 100), new Point(0, 10, -130))
+                .setKl(0.00001).setKq(0.00001));
+        scene2.lights.add(new SpotLight(new Color(500, 100, 0), new Point(10, 50, -130), new Vector(4,-3,-2)).
+                setKl(0.01).setKq(0.01));
+        scene2.lights.add(new DirectionalLight(new Color(100, 0, 700), new Vector(5, -6, -7)));
+
+        ImageWriter imageWriter = new ImageWriter("lightTriangleAll", 500, 500);
+        camera2.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene2)) //
+                .renderImage(); //
+        camera2.writeToImage(); //
+    }
+
+    /**
+     * Produce a picture of a sphere lighted by all lights
+     */
+    @Test
+    public void sphereAll() {
+        scene1.geometries.add(sphere);
+
+        scene1.lights.add(new PointLight(new Color(400, 20, 350), new Point(50, 0, 30))
+                .setKl(0.0001).setKq(0.0001));
+        scene1.lights.add(new SpotLight(new Color(0, 200, 400), spPL, new Vector(1, 1, -0.5))
+                .setKl(0.001).setKq(0.001));
+        scene1.lights.add(new DirectionalLight(new Color(500, 500, 0), new Vector(20, 10, -1)));
+
+        ImageWriter imageWriter = new ImageWriter("lightSphereAll", 500, 500);
+        camera1.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage(); //
+        camera1.writeToImage(); //
+    }
 }

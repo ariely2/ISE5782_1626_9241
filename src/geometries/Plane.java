@@ -62,7 +62,6 @@ public class Plane extends Geometry{
             cuts.add(new GeoPoint(this, p));
             return cuts;
         }
-
         return null; //not allowed t <= 0 because its ray
     }
 }
