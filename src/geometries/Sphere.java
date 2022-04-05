@@ -36,7 +36,7 @@ public class Sphere extends Geometry{
                 ", radius=" + radius;
     }
     @Override
-    public List<Point> findGeoIntersectionsHelper(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         double tm, d;
         if(!center.equals(ray.getP0())) {
             Vector u = center.subtract(ray.getP0());
@@ -58,19 +58,21 @@ public class Sphere extends Geometry{
         double t2 = tm - th;
 
         //add to point list
-        List<Point> cut = new ArrayList<>();
+        List<GeoPoint> cuts = new ArrayList<>(1);
         boolean intersects = false;
         if (t1 > 0) {
             intersects = true;
-            cut.add(ray.getPoint(t1));
+            Point p = ray.getPoint(t1);
+            cuts.add(new GeoPoint(this, p));
         }
         if (t2 > 0) {
             intersects = true;
-            cut.add(ray.getPoint(t2));
+            Point p = ray.getPoint(t2);
+            cuts.add(new GeoPoint(this, p));
         }
 
         if(intersects)
-            return cut;
+            return cuts;
 
         return null;
     }

@@ -23,7 +23,7 @@ class CameraIntersectionTests{
         for(int i = 0; i<c.getWidth();i++)
         {
            for(int j = 0; j<c.getHeight(); j++) {
-               var points = shape.findGeoIntersectionsHelper(c.constructRay(3, 3, j, i));
+               var points = shape.findIntersections(c.constructRay(3, 3, j, i));
                if (points != null)
                    num += points.size();
            }

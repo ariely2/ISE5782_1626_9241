@@ -43,7 +43,7 @@ class PlaneTests {
         assertNull(plane.findGeoIntersectionsHelper(new Ray(new Point(-1, 0, 0), new Vector(-5, 5, 5))));
         // TC01: Ray intersects the plane
         Point p1 = new Point(0, 1, 1);
-        List<Point> result = plane.findGeoIntersectionsHelper(new Ray(new Point(-1, 0, 0), new Vector(5, 5, 5)));
+        List<Point> result = plane.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(5, 5, 5)));
         assertEquals(1, result.size());
         assertEquals(List.of(p1), result);
         // =============== Boundary Values Tests ==================
@@ -57,7 +57,7 @@ class PlaneTests {
         // **** Group: Ray is orthogonal to the plane
         // TC13: Ray is before the plane
         p1 = new Point(0,0.5,0);
-        result = plane.findGeoIntersectionsHelper(new Ray(new Point(-1, 0.5, 0), new Vector(1,0,0)));
+        result = plane.findIntersections(new Ray(new Point(-1, 0.5, 0), new Vector(1,0,0)));
         assertEquals(1, result.size());
         assertEquals(List.of(p1), result);
 
