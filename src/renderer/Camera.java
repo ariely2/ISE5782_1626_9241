@@ -72,13 +72,16 @@ public class Camera {
     {
         if(imageWrite == null)
             throw new MissingResourceException("Image Writer is null", "ImageWriter", "imageWrite");
-        for(int i = 0; i<imageWrite.getNx();i++) {
+        for(int i = 0; i<imageWrite.getNx();i+=interval) {
             for (int j = 0; j < imageWrite.getNy(); j++) {
-                if (i % interval == 0 || j % interval == 0) //if we are on one of the grid's lines
                     imageWrite.writePixel(i, j, color); //paint the pixel in grid color
             }
         }
-        //return something?
+        for(int i = 0; i<imageWrite.getNx();i++) {
+            for (int j = 0; j < imageWrite.getNy(); j+=interval) {
+                imageWrite.writePixel(i, j, color); //paint the pixel in grid color
+            }
+        }
     }
 
     public void writeToImage()
