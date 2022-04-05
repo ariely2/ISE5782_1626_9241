@@ -8,24 +8,6 @@ import java.util.Objects;
  * @author Ariel
  */
 public abstract class Intersectable {
-    /**
-     * finds geometric bodies the ray intersects with
-     * @param ray
-     * @return list of geometries
-     */
-
-    protected abstract List<Point> findGeoIntersectionsHelper(Ray ray);
-
-    public List<GeoPoint> findGeoIntersections(Ray ray)
-    {
-        return findGeoIntersections(ray);
-    }
-
-    public List<Point> findIntersections(Ray ray) {
-        var geoList = findGeoIntersections(ray);
-        return geoList == null ? null
-                : geoList.stream().map(gp -> gp.point).toList();
-    }
 
     public static class GeoPoint {
         public final Geometry geometry;
@@ -35,6 +17,7 @@ public abstract class Intersectable {
             this.geometry = geometry;
             this.point = point;
         }
+
 
         @Override
         public boolean equals(Object o) {
@@ -57,4 +40,24 @@ public abstract class Intersectable {
                     '}';
         }
     }
+
+
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersectionsHelper(ray);
+    }
+
+    /**
+     * finds geometric bodies the ray intersects with
+     * @param ray
+     * @return list of geometries
+     */
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
+    }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 }
+
+

@@ -42,7 +42,7 @@ public class Tube extends Geometry{
     }
 
     @Override
-    public List<Point> findGeoIntersectionsHelper(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
 }

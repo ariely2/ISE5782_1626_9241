@@ -42,7 +42,7 @@ public class Vector extends Point{
     public Double lengthSquared()
     {
         Point b = new Point(0, 0, 0);
-        return distanceSquared(this, b);
+        return this.distanceSquared(b);
     }
     public Double length()
     {

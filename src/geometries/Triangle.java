@@ -15,7 +15,7 @@ public class Triangle extends Polygon{
     }
 
     @Override
-    public List<Point> findGeoIntersectionsHelper(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (plane.findGeoIntersectionsHelper(ray) == null) // if it's not cut the plane its don't cut the Triangle
             return null;
 

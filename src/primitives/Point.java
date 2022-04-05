@@ -31,14 +31,14 @@ public class Point {
     public Point add(Vector b){
         return new Point(xyz.add(b.xyz));
     }
-    public Double distanceSquared(Point a, Point b)
+    public Double distanceSquared(Point a)
     {
-        Double3 c = a.xyz.subtract(b.xyz);
+        Double3 c = this.xyz.subtract(a.xyz);
         return c.d1*c.d1 + c.d2*c.d2 +c.d3*c.d3;
     }
-    public Double distance(Point a, Point b)
+    public Double distance(Point a)
     {
-        Double squared = distanceSquared(a, b);
+        Double squared = this.distanceSquared(a);
         return Math.sqrt(squared);
     }
 

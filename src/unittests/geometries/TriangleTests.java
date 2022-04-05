@@ -25,11 +25,11 @@ class TriangleTests {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray intersects the triangle (inside)
         Point p1 = new Point(0, 0.5, 0);
-        List<Point> result = tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(1, -0.5, -1)));
+        List<Point> result = tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(1, -0.5, -1)));
         assertEquals(1, result.size());
         assertEquals(List.of(p1), result);
         // TC02: Ray intersects a point between continuances, of two edges that start at the same vertex
-        assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1))));
+        assertNull(tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1))));
 
         // TC03: Ray intersects a point between continuances that start at the same vertex
         assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(-2, -2, -1))));
