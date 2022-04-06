@@ -35,10 +35,10 @@ public class RayTracerBasic extends RayTracerBase {
 
         int nShininess = intersection.geometry.getShininess();
         Double3 kd = intersection.geometry.getKd(), ks = intersection.geometry.getKs();
-        Color color = Color.BLACK;
+        Color color = intersection.geometry.getEmission();
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
-            double nl = Util.alignZero(n.dotProduct(l));
+            double nl = Util.alignZero(l.dotProduct(n));
             if (nl * nv > 0) { // sign(nl) == sign(nv)
                 Color lightIntensity = lightSource.getIntensity(intersection.point);
                 color = color.add(calcDiffusive(kd, l, n, lightIntensity),
@@ -49,13 +49,12 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-        Vector r = l.subtract(n.scale(2*(l.dotProduct(n))));
-        return new Color(lightIntensity.getColor())
-                .scale(ks)
-                .scale(Math.pow(Math.max(0, v.scale(-1.0).dotProduct(r)), nShininess));
+        Vector r = l.subtract(n.scale(2*(n.dotProduct(l))));
+        return lightIntensity
+                .scale(ks.scale(Math.pow(Math.max(0, r.dotProduct(v.scale(-1.0))), nShininess)));
     }
 
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
-        return new Color(lightIntensity.getColor()).scale(kd).scale(Math.abs(l.dotProduct(n)));
+        return lightIntensity.scale(kd.scale(Math.abs(n.dotProduct(l))));
     }
 }
