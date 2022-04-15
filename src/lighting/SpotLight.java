@@ -17,9 +17,4 @@ public class SpotLight extends PointLight{
           Color c = super.getIntensity(p);
           return c.scale(Math.max(0, direction.dotProduct(getL(p))));
      }
-
-     @Override
-     public Vector getL(Point p) {
-          return super.getL(p);
-     }
 }

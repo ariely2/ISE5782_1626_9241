@@ -8,6 +8,7 @@ import java.util.List;
 import geometries.Intersectable.GeoPoint;
 
 public class RayTracerBasic extends RayTracerBase {
+    private static final double DELTA = 0.1;
 
     public RayTracerBasic(Scene a) {
         super(a);
@@ -40,9 +41,11 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = Util.alignZero(l.dotProduct(n));
             if (nl * nv > 0) { // sign(nl) == sign(nv)
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                if(unshaded(intersection, l, n, lightSource)) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                }
             }
         }
         return color;
@@ -56,5 +59,21 @@ public class RayTracerBasic extends RayTracerBase {
 
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
         return lightIntensity.scale(kd.scale(Math.abs(n.dotProduct(l))));
+    }
+
+    /**
+     * checks if nothing is blocking the light between aa point and a light source
+     * @param gp - point
+     * @param l - vector from light to point
+     * @param n - point's normal from geometry
+     * @return true if point is unshaded, otherwise false.
+     */
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource) {
+        Vector lightDirection = l.scale(-1.0); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point point = gp.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<Point> intersections = scene.geometries.findIntersections(lightRay);
+        return intersections == null;
     }
 }
