@@ -22,7 +22,7 @@ public class RayTracerBasic extends RayTracerBase {
         return calcColor(ray.getClosestGeoPoint(intersections), ray);
     }
 
-    private Color calcColor(GeoPoint point, Ray ray) {
+   private Color calcColor(GeoPoint point, Ray ray) {
         return scene.ambientLight.getIntensity().add(point.geometry.getEmission()).add(calcLocalEffects(point, ray));
     }
 
@@ -73,7 +73,7 @@ public class RayTracerBasic extends RayTracerBase {
         Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         Point point = gp.point.add(delta);
         Ray lightRay = new Ray(point, lightDirection);
-        List<Point> intersections = scene.geometries.findIntersections(lightRay);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
         return intersections == null;
     }
 }

@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.ArrayList;
@@ -36,15 +37,13 @@ public class Sphere extends Geometry{
                 ", radius=" + radius;
     }
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         double tm, d;
-        if(!center.equals(ray.getP0())) {
+        if (!center.equals(ray.getP0())) {
             Vector u = center.subtract(ray.getP0());
             tm = u.dotProduct(ray.getDir());
             d = Math.sqrt((u.lengthSquared()) - (tm * tm));
-        }
-        else
-        {
+        } else {
             tm = 0;
             d = 0;
         }
@@ -52,7 +51,7 @@ public class Sphere extends Geometry{
         if (d >= radius) // if (d ≥ r) there are no intersections
             return null;
 
-        double th = Math.sqrt((radius*radius) - d*d);
+        double th = Math.sqrt((radius * radius) - d * d);
         // two options
         double t1 = tm + th;
         double t2 = tm - th;
@@ -60,18 +59,18 @@ public class Sphere extends Geometry{
         //add to point list
         List<GeoPoint> cuts = new ArrayList<>(1);
         boolean intersects = false;
-        if (t1 > 0) {
+        if (t1 > 0 && Util.alignZero(t1 - maxDistance) <= 0) {
             intersects = true;
             Point p = ray.getPoint(t1);
             cuts.add(new GeoPoint(this, p));
         }
-        if (t2 > 0) {
+        if (t2 > 0 && Util.alignZero(t2 - maxDistance) <= 0) {
             intersects = true;
             Point p = ray.getPoint(t2);
             cuts.add(new GeoPoint(this, p));
         }
 
-        if(intersects)
+        if (intersects)
             return cuts;
 
         return null;
