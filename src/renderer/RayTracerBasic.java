@@ -6,7 +6,7 @@ import primitives.*;
 import scene.Scene;
 import java.util.List;
 import geometries.Intersectable.GeoPoint;
-
+import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
@@ -75,8 +75,11 @@ public class RayTracerBasic extends RayTracerBase {
         Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         Point point = gp.point.add(delta);
         Ray lightRay = new Ray(point, lightDirection);
-        List<Point> intersections = scene.geometries.findIntersections(lightRay);
-        return intersections == null;
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections == null)
+            return true;
+        intersections.removeIf(x->!x.geometry.getMaterial().kT.equals(0.0));
+        return intersections.isEmpty();
     }
 
     private Double3 transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n) {

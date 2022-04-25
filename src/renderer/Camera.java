@@ -7,6 +7,8 @@ import primitives.Vector;
 
 import java.util.MissingResourceException;
 
+import static primitives.Util.isZero;
+
 public class Camera {
     private Point location;
     private Vector to;
@@ -129,9 +131,9 @@ public class Camera {
         Point Pij = center;
 
         //pij = pc + (xj*right + yi*up)
-        if (xj != 0)
+        if (!isZero(xj) )
             Pij = Pij.add(right.scale(xj));
-        if (yi != 0)
+        if (!isZero(yi))
             Pij = Pij.add(up.scale(yi));
 
         Vector Vij = Pij.subtract(location);
