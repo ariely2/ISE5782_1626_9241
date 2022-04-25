@@ -12,6 +12,10 @@ public class Ray {
         dir = v.normalize();
     }
 
+    public Ray(Point p, Vector dir1 , Vector dir2) {
+        p0 = p;
+        dir = dir1.crossProduct(dir2).normalize();
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
