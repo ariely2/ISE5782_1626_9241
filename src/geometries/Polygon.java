@@ -90,7 +90,7 @@ public class Polygon extends Geometry {
 		return plane.getNormal(point);
 	}
 
-	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 		return null;
 	}
 }

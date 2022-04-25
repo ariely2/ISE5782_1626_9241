@@ -32,16 +32,24 @@ class TriangleTests {
         assertNull(tr.findIntersections(new Ray(new Point(-1, 1, 1), new Vector(0, 0, -1))));
 
         // TC03: Ray intersects a point between continuances that start at the same vertex
-        assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(-2, -2, -1))));
+        assertNull(tr.findGeoIntersectionsHelper(
+                new Ray(new Point(-1, 1, 1), new Vector(-2, -2, -1)),
+                Double.POSITIVE_INFINITY));
 
         // =============== Boundary Values Tests ==================
         // TC11: Ray intersects one of the triangle's edges
-        assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(1.5, -1, -1))));
+        assertNull(tr.findGeoIntersectionsHelper(
+                new Ray(new Point(-1, 1, 1), new Vector(1.5, -1, -1)),
+                Double.POSITIVE_INFINITY));
 
         // TC12: Ray intersects one of the triangle's vertices
-        assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(0, -1, -1))));
+        assertNull(tr.findGeoIntersectionsHelper(
+                new Ray(new Point(-1, 1, 1), new Vector(0, -1, -1)),
+                Double.POSITIVE_INFINITY));
 
         // TC13: Ray intersects the continuance of one of the triangle's edges
-        assertNull(tr.findGeoIntersectionsHelper(new Ray(new Point(-1, 1, 1), new Vector(-0.5, -1, -1))));
+        assertNull(tr.findGeoIntersectionsHelper(
+                new Ray(new Point(-1, 1, 1), new Vector(-0.5, -1, -1)),
+                Double.POSITIVE_INFINITY));
     }
 }
