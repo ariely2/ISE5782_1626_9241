@@ -101,8 +101,12 @@ public class RayTracerBasic extends RayTracerBase {
      * @return true if point is unshaded, otherwise false.
      */
     private Double3 transparency(GeoPoint geoPoint, Vector l, Vector n, LightSource ls) {
-        Vector lightDirection = l.scale((double)-1); // from point to light source
-        Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
+        // Vector lightDirection = l.scale((double)-1); // from point to light source
+        // Ray lightRay = new Ray(geoPoint.point, lightDirection, n)
+
+        Vector delta = n.scale(n.dotProduct(l) > 0 ? DELTA : -DELTA);
+        Point point = geoPoint.point.add(delta);
+        Ray lightRay = new Ray(point, delta, n);
         double lightDistance = ls.getDistance(geoPoint.point);
 
         var intersections = scene.geometries.findGeoIntersections(lightRay);
