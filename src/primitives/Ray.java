@@ -6,7 +6,7 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
     final Point p0;
     final Vector dir;
-
+    private static final double DELTA = 0.1;
     public Ray(Point p, Vector v) {
         p0 = p;
         dir = v.normalize();

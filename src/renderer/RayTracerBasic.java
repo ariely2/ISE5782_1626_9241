@@ -129,15 +129,18 @@ public class RayTracerBasic extends RayTracerBase {
 
         Double3 kkt = material.kT.product(k);
         if (!kkt.lowerThan(MIN_CALC_COLOR_K) && !kkt.equals(MIN_CALC_COLOR_K))
+            //check if this is accurate enough
             color = color.add(
                     calcGlobalEffect(constructRefractedRay(gp.point, v, n), level, material.kT, kkt));
+
         return color;
     }
 
     private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx) {
         GeoPoint gp = findClosestIntersection (ray);
-        return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)
-        ).scale(kx);
+        //find the closest intersection
+        return (gp == null ? scene.background //if its don't have intersection -> return the background
+                : calcColor(gp, ray, level - 1, kkx)).scale(kx); //else -> calc the color
     }
 
     private Ray constructReflectedRay(Point p, Vector v, Vector n) {
@@ -148,7 +151,5 @@ public class RayTracerBasic extends RayTracerBase {
     private Ray constructRefractedRay(Point p, Vector v, Vector n) {
         return new Ray(p, v);
     }
-
-
 
 }
