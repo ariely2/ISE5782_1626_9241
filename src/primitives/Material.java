@@ -11,7 +11,7 @@ public class Material {
         return this;
     }
 
-    public Material setkR(Double3 kR) {
+    public Material setKr(Double3 kR) {
         this.kR = kR;
         return this;
     }
@@ -23,6 +23,11 @@ public class Material {
 
     public Material setKs(double kS) {
         this.kS = new Double3(kS);
+        return this;
+    }
+
+    public Material setKt(double kT) {
+        this.kT = new Double3(kT);
         return this;
     }
 

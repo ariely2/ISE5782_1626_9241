@@ -136,6 +136,7 @@ public class Camera {
         if (!isZero(yi))
             Pij = Pij.add(up.scale(yi));
 
+
         Vector Vij = Pij.subtract(location);
 
         return new Ray(location , Vij);
