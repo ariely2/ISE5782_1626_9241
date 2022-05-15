@@ -4,6 +4,8 @@ import java.util.List;
 import geometries.Intersectable.GeoPoint;
 
 public class Ray {
+    private static final double DELTA = 0.1;
+
     final Point p0;
     final Vector dir;
     private static final double DELTA = 0.1;
@@ -12,9 +14,12 @@ public class Ray {
         dir = v.normalize();
     }
 
-    public Ray(Point p, Vector dir1 , Vector dir2) {
-        p0 = p;
-        dir = dir1.crossProduct(dir2).normalize();
+    public Ray(Point p, Vector v , Vector normal) {
+        //p0 = p;
+        //dir = dir1.crossProduct(dir2).normalize();
+        Vector delta = normal.scale(normal.dotProduct(v) > 0 ? DELTA : -DELTA);
+        p0 = p.add(delta);
+        dir = v.normalize();
     }
     @Override
     public boolean equals(Object obj) {
