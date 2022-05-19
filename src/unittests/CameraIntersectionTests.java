@@ -11,6 +11,8 @@ import primitives.Point;
 import renderer.Camera;
 import primitives.*;
 
+import java.util.List;
+
 
 class CameraIntersectionTests{
     static final Point ZERO_POINT = new Point(0, 0, 0);
@@ -21,7 +23,11 @@ class CameraIntersectionTests{
         for(int i = 0; i<c.getWidth();i++)
         {
            for(int j = 0; j<c.getHeight(); j++) {
-               var points = shape.findIntersections(c.constructRay(3, 3, j, i));
+               List<Point> points = null;
+               List<Ray> rays  = c.constructRay(3, 3, j, i);
+               for (Ray ray : rays) {
+                   points = shape.findIntersections(ray);
+               }
                if (points != null)
                    num += points.size();
            }
