@@ -5,6 +5,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +23,26 @@ public class Camera {
     private double viewPlaneDis;
     private ImageWriter imageWrite;
     private RayTracerBase rayTracer;
+    private boolean AntiAliasing = false;
+    private int rezInX = 9;
+    private int rezInY = 9;
+
+    public Camera(Point location, Vector to, Vector up){
+        this.location = location;
+        if (to.dotProduct(up) != 0) //if vectors not vertical
+            throw new IllegalArgumentException();
+        this.to = to.normalize();
+        this.up = up.normalize();
+        this.right = to.crossProduct(up);
+    }
+
+    public boolean isAntiAliasing() {
+        return AntiAliasing;
+    }
+
+    public void setAntiAliasing(boolean antiAliasing) {
+        AntiAliasing = antiAliasing;
+    }
 
     public Point getLocation() {
         return location;
@@ -49,6 +70,22 @@ public class Camera {
 
     public double getViewPlaneDis() {
         return viewPlaneDis;
+    }
+
+    public int getRezInX() {
+        return rezInX;
+    }
+
+    public int getRezInY() {
+        return rezInY;
+    }
+
+    public void setRezInX(int rezInX) {
+        this.rezInX = rezInX;
+    }
+
+    public void setRezInY(int rezInY) {
+        this.rezInY = rezInY;
     }
 
     public Camera setImageWriter(ImageWriter imageWrite) {
@@ -96,16 +133,6 @@ public class Camera {
         imageWrite.writeToImage();
     }
 
-
-    public Camera(Point location, Vector to, Vector up){
-        this.location = location;
-        if (to.dotProduct(up) != 0) //if vectors not vertical
-            throw new IllegalArgumentException();
-        this.to = to.normalize();
-        this.up = up.normalize();
-        this.right = to.crossProduct(up);
-    }
-
     public Camera setVPSize(double width, double height){
         this.height = height;
         this.width = width;
@@ -120,7 +147,8 @@ public class Camera {
      * @param i vertical index (num of row)
      * @return Ray to pixel
      */
-    public Ray constructRay(int nX, int nY, int j, int i){
+    public List<Ray> constructRay(int nX, int nY, int j, int i){
+        List<Ray> rays = new ArrayList<>();
         Point center = location.add(to.scale(viewPlaneDis));
 
         //calculate Ratio
@@ -132,19 +160,40 @@ public class Camera {
         double xj = (j - ((double)nX - 1)/2) * Rx;
 
         Point Pij = center;
-
         //pij = pc + (xj*right + yi*up)
         if (!isZero(xj) )
             Pij = Pij.add(right.scale(xj));
         if (!isZero(yi))
             Pij = Pij.add(up.scale(yi));
+        if (AntiAliasing){ //if we want higher quality
+            List<Point> points = createPointsAround(rezInX , rezInY , Pij , Rx , Ry); //add new points
+            for (Point point : points) {
+                Vector help = point.subtract(location); //calculate vector
+                rays.add(new Ray(point, help)); //add to the list
+            }
+            return rays;
+        }
 
 
         Vector Vij = Pij.subtract(location);
-
-        return new Ray(location , Vij);
+        rays.add(new Ray(location , Vij));
+        return rays;
     }
-
+    public List<Point> createPointsAround(int nX, int nY , Point p, double rX, double rY) {
+        List<Point> points = new ArrayList<>(nX * nY);
+        points.add(p);
+        for (double j = -rY / 2; j < rY / 2; j += rY / nY) {
+            for (double i = -rX / 2; i < rX / 2; i += rX / nX) {
+                Point ijP = p;
+                if (!isZero(j))
+                    ijP = ijP.add(right.scale(j));
+                if (!isZero(i))
+                    ijP = ijP.add(up.scale(i));
+                points.add(ijP);
+            }
+        }
+        return points;
+    }
     public Camera setVPDistance(double distance) {
         this.viewPlaneDis = distance;
         return this;
@@ -152,7 +201,14 @@ public class Camera {
 
     private Color castRay(int Nx, int Ny, int i, int j)
     {
-        Ray toPixel = constructRay(Nx, Ny, i, j);
-        return rayTracer.traceRay(toPixel); //return color
+        List<Ray> toPixel = constructRay(Nx, Ny, i, j);
+        Color sum = Color.BLACK;
+        Color avrage;
+        for (Ray ray : toPixel) {
+            sum = sum.add(rayTracer.traceRay(ray));
+        }
+        avrage = sum.reduce(toPixel.size());
+
+        return avrage; //return color
     }
 }
