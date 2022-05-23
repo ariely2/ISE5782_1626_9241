@@ -15,12 +15,17 @@ public interface LightSource {
      */
     Color getIntensity(Point p);
 
+    double getRadius();
+
+    Point getPosition();
     /**
      * ?
-     * @param p
-     * @return
+     * @param p - point
+     * @return direction from light to point?
      */
     Vector getL(Point p);
 
     double getDistance(Point point);
+
+    int getNr();
 }

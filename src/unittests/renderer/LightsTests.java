@@ -7,6 +7,9 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+
+import java.util.List;
+
 import static java.awt.Color.*;
 
 /**
