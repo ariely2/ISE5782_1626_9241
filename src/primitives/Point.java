@@ -41,7 +41,7 @@ public class Point {
         Double squared = this.distanceSquared(a);
         return Math.sqrt(squared);
     }
-    public Double getX() {
+    public double getX() {
         return xyz.d1;
     }
 
