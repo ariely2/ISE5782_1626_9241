@@ -14,14 +14,14 @@ public class AmbientLight extends Light {
      * @param d - attenuation of color
      */
     public AmbientLight(Color c, Double3 d) {
-        super(c.scale(d));
+        super(c.scale(d), null);
     }
 
     /**
      * default constructor of Ambient Light  - darkness (black light)
       */
     public AmbientLight() {
-        super(Color.BLACK);
+        super(Color.BLACK, null);
     }
 
 }

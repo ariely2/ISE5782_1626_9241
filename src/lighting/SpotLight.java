@@ -2,7 +2,12 @@ package lighting;
 
 import primitives.Color;
 import primitives.Point;
+import primitives.Util;
 import primitives.Vector;
+
+import java.util.LinkedList;
+
+import static primitives.Util.isZero;
 
 public class SpotLight extends PointLight{
      private Vector direction;
@@ -18,9 +23,48 @@ public class SpotLight extends PointLight{
           this.direction = direction.normalize();
      }
 
+     public SpotLight(Color intensity, Point position, double radius, Vector direction, int n) {
+          super(intensity, position, radius, n);
+          this.direction = direction;
+     }
+
      @Override
      public Color getIntensity(Point p) {
           Color c = super.getIntensity(p);
           return c.scale(Math.max(0, direction.dotProduct(getL(p))));
+     }
+
+     public Vector getDirection(){
+          return direction;
+     }
+
+     @Override
+     public LinkedList<Point> createPoints() {
+          Vector v;
+          if(direction.getY()==0)
+               v = new Vector(direction.getZ(),0, -direction.getX());
+          else
+               v = new Vector(0, direction.getZ(), -direction.getY());
+          Vector w = v.crossProduct(direction).normalize();
+
+          LinkedList<Point> points = new LinkedList<Point>();
+          for(int i = 0; i < getNr(); i++) {
+               var angle = Math.random() * Math.PI * 2; //getting a random angle
+               var r = Math.random() + Math.random(); //random number between 0 and 2
+               if(r > 1)
+                    r = 2-r;
+               double x = Math.cos(angle) * r;
+               double y = Math.sin(angle) * r;
+               if(!isZero(x) && !isZero(y))
+                    points.add(getPosition().add(w.scale(x).add(v.scale(y)).scale(getRadius())));
+               else if(!isZero(x))
+                    points.add(w.scale(x).scale(getRadius()));
+               else if(!isZero(y))
+                    points.add(v.scale(y).scale(getRadius()));
+               else
+                    points.add(getPosition());
+          }
+          this.points = points;
+          return points;
      }
 }
