@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Material;
-import primitives.Point;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,12 +14,16 @@ public class Tree extends Geometries{
     public Tree(Point origin, double height, double base, double angle)
     {
         super();
-        Material m = new Material().setKd(0.5).setKs(0.5).setShininess(20);
+        Material foliage = new Material().setKd(0.4).setKs(0.3).setShininess(20);
+        Material wood = new Material().setKd(0.001).setKs(0.1);
         for(int i = 0; i < 3; i++)
         {
-            add(Pyramid(origin, height, base, angle, new Color(0, 100, 0), m));
+            add(Pyramid(origin, height, base, angle, new Color(0, 100, 0), foliage));
             origin = origin.subtract(new Point(0,0,base/3));
         }
+        Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), height/12, base*2);
+        trunk.setEmission(new Color(101, 56, 24));
+        add(trunk.setMaterial(wood));
     }
 
     public Geometries Pyramid(Point origin, double height, double base, double angle, Color color, Material material)
