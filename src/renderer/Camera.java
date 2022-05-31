@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 import static primitives.Util.isZero;
-
+import java.util.stream.*;
 public class Camera {
     private Point location;
     private Vector to;
@@ -104,11 +105,20 @@ public class Camera {
                 this.width == 0 || this.viewPlaneDis == 0 || this.rayTracer == null) // if one of the fields is Empty
             throw new MissingResourceException("a field is empty", "Camera", "");
 
-        for(int i = 0; i<imageWrite.getNx();i++) {
-            for (int j = 0; j < imageWrite.getNy(); j++)
-               imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
-        }
+        Pixel.initialize(imageWrite.getNy(), imageWrite.getNx(), 6);
+        IntStream.range(0, imageWrite.getNy()).parallel().forEach(i -> {
+            IntStream.range(0, imageWrite.getNx()).parallel().forEach(j -> {
+
+                imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
+                castRay(imageWrite.getNx(), imageWrite.getNy(), j, i);
+
+                Pixel.pixelDone();
+                Pixel.printPixel();
+            });
+        });
+
     }
+
 
     public void printGrid(int interval, Color color)
     {
@@ -199,7 +209,7 @@ public class Camera {
         return this;
     }
 
-    private Color castRay(int Nx, int Ny, int i, int j)
+    public Color castRay(int Nx, int Ny, int i, int j)
     {
         List<Ray> toPixel = constructRay(Nx, Ny, i, j);
         Color sum = Color.BLACK;

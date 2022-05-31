@@ -121,8 +121,8 @@ public class ReflectionRefractionTests {
 		scene.lights.add( //
 				new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
 						.setKl(0.0004).setKq(0.0000006));
-		camera.setRezInX(20);
-		camera.setRezInY(20);
+		camera.setRezInX(30);
+		camera.setRezInY(30);
 		camera.setImageWriter(new ImageWriter("refractionTwoSpheresbetter", 500, 500)) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
