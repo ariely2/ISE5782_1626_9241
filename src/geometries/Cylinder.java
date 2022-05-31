@@ -14,7 +14,7 @@ public class Cylinder extends Tube { // does it need to implement geometry?
     final double height;
 
     public Vector getNormal(Point a) {
-        /**Double t = 0.0;
+        Double t = 0.0;
         if(!a.equals(axisRay.getP0()))
             t = axisRay.getDir().dotProduct(a.subtract(axisRay.getP0()));
         if(t == 0)
@@ -22,12 +22,8 @@ public class Cylinder extends Tube { // does it need to implement geometry?
         else if(t == height)
             return axisRay.getDir();
         else
-            return super.getNormal(a); //ok?*/
-        double t = axisRay.getDir().dotProduct(a.subtract(axisRay.getP0()));
-        if (isZero(t) || isZero(t - height))
-            return axisRay.getDir();
-        else
             return super.getNormal(a);
+
     }
     public Cylinder(Ray _ray, double _radius, double _height)
     {
