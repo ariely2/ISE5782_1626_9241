@@ -110,7 +110,7 @@ public class Camera {
             IntStream.range(0, imageWrite.getNx()).parallel().forEach(j -> {
 
                 imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
-                castRay(imageWrite.getNx(), imageWrite.getNy(), j, i);
+
 
                 Pixel.pixelDone();
                 Pixel.printPixel();
