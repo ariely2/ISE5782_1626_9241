@@ -11,9 +11,6 @@ import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
 
-import static java.awt.Color.BLUE;
-import static java.awt.Color.red;
-
 public class CampfireTests {
     private Scene scene = new Scene("Test scene");
 
@@ -68,6 +65,9 @@ public class CampfireTests {
         //tree logs
        // Ray r = new Ray(new Point(30, 0, 0), new Vector(2, 1, 0));
         //scene.geometries.add(new TreeLog(r, 3, 45));
+
+        //fire
+        scene.geometries.add(new Fire(new Point(0, 10, 0), 12, 90));
 
         ImageWriter imageWriter = new ImageWriter("pyramid", 500, 500);
         camera.setImageWriter(imageWriter) //
