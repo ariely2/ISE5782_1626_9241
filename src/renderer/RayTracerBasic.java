@@ -1,6 +1,5 @@
 package renderer;
 
-import lighting.DirectionalLight;
 import lighting.LightSource;
 import geometries.Intersectable;
 import lighting.PointLight;
@@ -199,7 +198,7 @@ public class RayTracerBasic extends RayTracerBase {
             v = new Vector(0, u.getZ(), -u.getY());
         Vector w = v.crossProduct(u).normalize();
 
-        LinkedList<Point> points = new LinkedList<Point>();
+        LinkedList<Point> points = new LinkedList<>();
         for(int i = 0; i < n; i++) {
             var angle = Math.random() * Math.PI * 2; //getting a random angle
             var r = Math.random() + Math.random(); //random number between 0 and 2

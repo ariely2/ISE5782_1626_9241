@@ -7,10 +7,10 @@ import primitives.Point;
  * Light class represents a generic type of light
  */
 abstract class Light {
-    private Color intensity;
-    private double radius = 0;
-    private Point position;
-    private int nR = 1;
+    protected Color intensity;
+    protected double radius = 0; //ok?
+    protected Point position; //ok?
+    protected int nR = 1;
     /**
      * constructor for a light source with an area
      * @param intensity - color intensity

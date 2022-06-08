@@ -30,7 +30,7 @@ public class Camera {
 
     public Camera(Point location, Vector to, Vector up){
         this.location = location;
-        if (to.dotProduct(up) != 0) //if vectors not vertical
+        if (to.dotProduct(up) != 0) //if vectors aren't vertical
             throw new IllegalArgumentException();
         this.to = to.normalize();
         this.up = up.normalize();

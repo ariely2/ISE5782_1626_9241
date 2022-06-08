@@ -38,6 +38,10 @@ public class SpotLight extends PointLight{
           return direction;
      }
 
+     /**
+      * getting random points on area of light, for soft shadows
+      * @return list of points on area of light
+      */
      @Override
      public LinkedList<Point> createPoints() {
           Vector v;
@@ -47,8 +51,8 @@ public class SpotLight extends PointLight{
                v = new Vector(0, direction.getZ(), -direction.getY());
           Vector w = v.crossProduct(direction).normalize();
 
-          LinkedList<Point> points = new LinkedList<Point>();
-          for(int i = 0; i < getNr(); i++) {
+          LinkedList<Point> points = new LinkedList<>();
+          for(int i = 0; i < nR; i++) {
                var angle = Math.random() * Math.PI * 2; //getting a random angle
                var r = Math.random() + Math.random(); //random number between 0 and 2
                if(r > 1)
@@ -56,13 +60,13 @@ public class SpotLight extends PointLight{
                double x = Math.cos(angle) * r;
                double y = Math.sin(angle) * r;
                if(!isZero(x) && !isZero(y))
-                    points.add(getPosition().add(w.scale(x).add(v.scale(y)).scale(getRadius())));
+                    points.add(position.add(w.scale(x).add(v.scale(y)).scale(radius)));
                else if(!isZero(x))
-                    points.add(w.scale(x).scale(getRadius()));
+                    points.add(w.scale(x).scale(radius));
                else if(!isZero(y))
-                    points.add(v.scale(y).scale(getRadius()));
+                    points.add(v.scale(y).scale(radius));
                else
-                    points.add(getPosition());
+                    points.add(position);
           }
           this.points = points;
           return points;

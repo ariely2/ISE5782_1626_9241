@@ -44,19 +44,19 @@ public class PointLight extends Light implements LightSource{
 
     @Override
     public Color getIntensity(Point p) {
-        double distance = getPosition().distance(p);
+        double distance = position.distance(p);
         double denominator = kC + kL*distance + kQ*distance*distance;
         return super.getIntensity().scale(1/denominator);
     }
 
     @Override
     public Vector getL(Point p) {
-        return p.subtract(getPosition()).normalize();
+        return p.subtract(position).normalize();
     }
 
     @Override
     public double getDistance(Point point) {
-        return getPosition().distance(point);
+        return position.distance(point);
     }
 
     public LinkedList<Point> getPoints()
@@ -67,17 +67,22 @@ public class PointLight extends Light implements LightSource{
             return createPoints();
     }
 
+    /**
+     * getting random points on area of light, for soft shadows
+     * @return list of points on area of light
+     */
     public LinkedList<Point> createPoints() {
-        LinkedList<Point> points = new LinkedList<Point>();
-        for(int i = 0; i < getNr(); i++) {
+        LinkedList<Point> points = new LinkedList<>();
+
+        for(int i = 0; i < nR; i++) {
             var angle = Math.random() * Math.PI * 2; //getting a random angle
             var theta = Math.acos(Util.random(-1,1)); //random number between
             var u = Math.random();
-            var r = getRadius()*Math.cbrt(u);
+            var r = radius*Math.cbrt(u);
             double x = r*Math.sin(theta)*Math.cos(angle);
             double y = r*Math.sin(theta)*Math.sin(angle);
             double z = r*Math.cos(theta);
-            points.add(getPosition().add(new Vector(x,y,z)));
+            points.add(position.add(new Vector(x,y,z)));
         }
         this.points = points;
         return points;

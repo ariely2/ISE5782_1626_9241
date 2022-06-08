@@ -11,6 +11,13 @@ import static java.lang.Math.sin;
 
 public class Tree extends Geometries{
 
+    /**
+     * Tree constructor
+     * @param origin - point at top of tree
+     * @param height - height of each tree "level" (pyramid)
+     * @param base - base length of each tree "level" (pyramid)
+     * @param angle - rotation angle
+     */
     public Tree(Point origin, double height, double base, double angle)
     {
         super();
@@ -19,13 +26,23 @@ public class Tree extends Geometries{
         for(int i = 0; i < 3; i++)
         {
             add(Pyramid(origin, height, base, angle, new Color(0, 100, 0), foliage));
-            origin = origin.subtract(new Point(0,0,base/3));
+            origin = origin.subtract(new Point(0,0,base/3)); //going down for the next tree level
         }
         Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), height/12, base*2);
         trunk.setEmission(new Color(101, 56, 24));
         add(trunk.setMaterial(wood));
     }
 
+    /**
+     * Pyramid constructor for tree levels
+     * @param origin - top points
+     * @param height - height
+     * @param base - base length
+     * @param angle - rotation angle
+     * @param color  - pyramid color
+     * @param material - pyramid material
+     * @return pyramid geometry
+     */
     public Geometries Pyramid(Point origin, double height, double base, double angle, Color color, Material material)
     {
         Geometries pyramid = new Geometries();
