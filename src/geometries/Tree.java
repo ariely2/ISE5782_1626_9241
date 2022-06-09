@@ -28,7 +28,8 @@ public class Tree extends Geometries{
             add(Pyramid(origin, height, base, angle, new Color(0, 100, 0), foliage));
             origin = origin.subtract(new Point(0,0,base/3)); //going down for the next tree level
         }
-        Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), height/12, base*2);
+        //Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), height/12, base*2);
+        Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), base/6, height*2);
         trunk.setEmission(new Color(101, 56, 24));
         add(trunk.setMaterial(wood));
     }

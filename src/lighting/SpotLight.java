@@ -51,7 +51,7 @@ public class SpotLight extends PointLight{
                v = new Vector(0, direction.getZ(), -direction.getY());
           Vector w = v.crossProduct(direction).normalize();
 
-          LinkedList<Point> points = new LinkedList<>();
+          LinkedList<Point> points = new LinkedList<>(); //array list is better?
           for(int i = 0; i < nR; i++) {
                var angle = Math.random() * Math.PI * 2; //getting a random angle
                var r = Math.random() + Math.random(); //random number between 0 and 2

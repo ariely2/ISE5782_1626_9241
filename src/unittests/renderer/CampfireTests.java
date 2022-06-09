@@ -28,14 +28,14 @@ public class CampfireTests {
 
 
         //trees
-        scene.geometries.add(new Tree(new Point(-55, 10, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-85, 15, 10), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-85, 45, 10), 42, 20, 70));
+        /*scene.geometries.add(new Tree(new Point(-55, 10, 20), 35, 20, 20));
+        scene.geometries.add(new Tree(new Point(-85, 15, 19), 37, 18, 40));
+        scene.geometries.add(new Tree(new Point(-85, 45, 22), 42, 20, 70));
         scene.geometries.add(new Tree(new Point(-115, 25, 23), 30, 15, 10));
         scene.geometries.add(new Tree(new Point(-100, 45, 25), 40, 20, 30));
         scene.geometries.add(new Tree(new Point(-90, 56, 17), 35, 25, 0));
         scene.geometries.add(new Tree(new Point(-120, 76, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-110, 66, 17), 39, 23, 45));
+        scene.geometries.add(new Tree(new Point(-110, 66, 17), 39, 23, 45));*/
 
         scene.geometries.add(new Tree(new Point(-95, 90, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-75, 99, 20), 35, 20, 20));
@@ -43,15 +43,15 @@ public class CampfireTests {
         scene.geometries.add(new Tree(new Point(-20, 100, 23), 35, 19, 10));
         scene.geometries.add(new Tree(new Point(-25, 70, 25), 40, 20, 30));
 
-        scene.geometries.add(new Tree(new Point(-120, 96, 17), 35, 25, 0));
-        scene.geometries.add(new Tree(new Point(-140, 106, 24), 45, 22, 50));
+        scene.geometries.add(new Tree(new Point(-125, 96, 23), 35, 25, 0));
+        scene.geometries.add(new Tree(new Point(-140, 126, 24), 45, 22, 50));
         scene.geometries.add(new Tree(new Point(-165, 115, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-195, 129, 20), 35, 20, 20));
         scene.geometries.add(new Tree(new Point(-210, 121, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-235, 120, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-245, 130, 25), 40, 20, 30));
+        scene.geometries.add(new Tree(new Point(-200, 100, 23), 35, 19, 10));
+        scene.geometries.add(new Tree(new Point(-260, 130, 25), 40, 20, 30));
 
-        scene.geometries.add(new Tree(new Point(-250, 146, 24), 45, 22, 50));
+        /*scene.geometries.add(new Tree(new Point(-250, 146, 24), 45, 22, 50));
         scene.geometries.add(new Tree(new Point(-265, 158, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-285, 173, 20), 35, 20, 20));
         scene.geometries.add(new Tree(new Point(-300, 185, 15), 37, 18, 70));
@@ -76,7 +76,7 @@ public class CampfireTests {
         scene.geometries.add(new Tree(new Point(-50, 325, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-31, 340, 20), 35, 20, 20));
         scene.geometries.add(new Tree(new Point(0, 300, 25), 40, 20, 30));
-        scene.geometries.add(new Tree(new Point(26, 295, 17), 35, 25, 0));
+        scene.geometries.add(new Tree(new Point(26, 295, 17), 35, 25, 0));*/
 
 //        scene.geometries.add(new Tree(new Point(65, 15, 30), 45, 22, 30));
 
