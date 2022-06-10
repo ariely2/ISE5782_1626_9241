@@ -44,4 +44,7 @@ public class Tree extends Geometries{
         }
         return pyramid;
     }
+    public Box createBox() {
+        return null;
+    }
 }

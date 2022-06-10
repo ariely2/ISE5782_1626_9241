@@ -8,16 +8,15 @@ import java.util.Objects;
  * @author Ariel
  */
 public abstract class Intersectable {
-
+    public Box box;
     public static class GeoPoint {
         public final Geometry geometry;
         public final Point point;
-
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;
-        }
 
+        }
 
         @Override
         public boolean equals(Object o) {
@@ -41,6 +40,8 @@ public abstract class Intersectable {
         }
     }
 
+    public abstract Box createBox();
+
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
@@ -50,7 +51,9 @@ public abstract class Intersectable {
 
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 
-
+    public Box getBox() {
+        return box;
+    }
 
     /**
      * finds geometric bodies the ray intersects with
@@ -58,9 +61,11 @@ public abstract class Intersectable {
      * @return list of geometries
      */
     public List<Point> findIntersections(Ray ray) {
-        var geoList = findGeoIntersections(ray);
-        return geoList == null ? null
-                : geoList.stream().map(gp -> gp.point).toList();
+        if (box == null || box.ifHaveIntersection(ray)){ //if have intersection with box
+            var geoList = findGeoIntersections(ray);
+            return geoList == null ? null :geoList.stream().map(gp -> gp.point).toList();
+        }
+        return null;
     }
 
 }

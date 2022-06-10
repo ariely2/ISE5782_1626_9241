@@ -34,6 +34,16 @@ public class Circle extends Geometry{
     }
 
     @Override
+    public Box createBox() {
+        Point min , max;
+
+        min = center.subtract(new Point(radius , radius , radius));
+        max = center.subtract(new Point(-radius , -radius , -radius));
+
+        return new Box(min , max);
+    }
+
+    @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         var point = plane.findGeoIntersectionsHelper(ray, maxDistance);
         if (point == null) // if it's not cut the plane its don't cut the Triangle

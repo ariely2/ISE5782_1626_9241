@@ -27,7 +27,7 @@ public class Camera {
     private boolean AntiAliasing = false;
     private int rezInX = 9;
     private int rezInY = 9;
-
+    double DebugPrint = 0.2;
     public Camera(Point location, Vector to, Vector up){
         this.location = location;
         if (to.dotProduct(up) != 0) //if vectors not vertical
@@ -99,28 +99,34 @@ public class Camera {
         return this;
     }
 
-    public void renderImage(){
+    public void setDebugPrint(double debugPrint) {
+        DebugPrint = debugPrint;
+    }
+
+    public Camera renderImage(){
         if (this.location == null || this.to == null || this.up == null ||
                 this.right == null || this.imageWrite == null || this.height == 0 ||
                 this.width == 0 || this.viewPlaneDis == 0 || this.rayTracer == null) // if one of the fields is Empty
             throw new MissingResourceException("a field is empty", "Camera", "");
 
-        Pixel.initialize(imageWrite.getNy(), imageWrite.getNx(), 6);
-        IntStream.range(0, imageWrite.getNy()).parallel().forEach(i -> {
-            IntStream.range(0, imageWrite.getNx()).parallel().forEach(j -> {
+            Pixel.initialize(imageWrite.getNy(), imageWrite.getNx(), 6);
 
-                imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
+            IntStream.range(0, imageWrite.getNy()).parallel().forEach(i -> {
+                IntStream.range(0, imageWrite.getNx()).parallel().forEach(j -> {
 
+                        imageWrite.writePixel(i, j, castRay(imageWrite.getNx(), imageWrite.getNy(), i, j));
 
-                Pixel.pixelDone();
-                Pixel.printPixel();
+                        Pixel.pixelDone();
+                        Pixel.printPixel();
+
+                });
             });
-        });
+        return this;
 
     }
 
 
-    public void printGrid(int interval, Color color)
+    public Camera printGrid(int interval, Color color)
     {
         if(imageWrite == null)
             throw new MissingResourceException("Image Writer is null", "ImageWriter", "imageWrite");
@@ -134,6 +140,7 @@ public class Camera {
                 imageWrite.writePixel(i, j, color); //paint the pixel in grid color
             }
         }
+        return this;
     }
 
     public void writeToImage()

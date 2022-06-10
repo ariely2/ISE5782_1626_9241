@@ -106,4 +106,8 @@ public class Tube extends Geometry{
         }
         return null;
     }
+
+    public Box createBox() {
+        return null;
+    }
 }
