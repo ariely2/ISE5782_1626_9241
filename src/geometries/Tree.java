@@ -22,14 +22,16 @@ public class Tree extends Geometries{
     {
         super();
         Material foliage = new Material().setKd(0.4).setKs(0.3).setShininess(20);
+        Color color = new Color(0, 50 +Util.random(0, 130), 0);
         Material wood = new Material().setKd(0.001).setKs(0.1);
         for(int i = 0; i < 3; i++)
         {
-            add(Pyramid(origin, height, base, angle, new Color(0, 100, 0), foliage));
+            add(Pyramid(origin, height, base, angle, color, foliage));
             origin = origin.subtract(new Point(0,0,base/3)); //going down for the next tree level
         }
         //Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), height/12, base*2);
         Cylinder trunk = new Cylinder(new Ray(origin, new Vector(0, 0, -1)), base/6, height*2);
+
         trunk.setEmission(new Color(101, 56, 24));
         add(trunk.setMaterial(wood));
     }

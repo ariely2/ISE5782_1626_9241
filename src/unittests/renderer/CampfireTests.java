@@ -26,7 +26,6 @@ public class CampfireTests {
          //       new SpotLight(new Color(255, 255, 255), new Point(-30, -50, 50), new Vector(0,1,0)) //
            //             .setKl(0.0004).setKq(0.00006));
 
-
         //trees
         /*scene.geometries.add(new Tree(new Point(-55, 10, 20), 35, 20, 20));
         scene.geometries.add(new Tree(new Point(-85, 15, 19), 37, 18, 40));
@@ -35,7 +34,7 @@ public class CampfireTests {
         scene.geometries.add(new Tree(new Point(-100, 45, 25), 40, 20, 30));
         scene.geometries.add(new Tree(new Point(-90, 56, 17), 35, 25, 0));
         scene.geometries.add(new Tree(new Point(-120, 76, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-110, 66, 17), 39, 23, 45));*/
+        scene.geometries.add(new Tree(new Point(-110, 66, 17), 39, 23, 45));
 
         scene.geometries.add(new Tree(new Point(-95, 90, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-75, 99, 20), 35, 20, 20));
@@ -51,7 +50,7 @@ public class CampfireTests {
         scene.geometries.add(new Tree(new Point(-200, 100, 23), 35, 19, 10));
         scene.geometries.add(new Tree(new Point(-260, 130, 25), 40, 20, 30));
 
-        /*scene.geometries.add(new Tree(new Point(-250, 146, 24), 45, 22, 50));
+        scene.geometries.add(new Tree(new Point(-250, 146, 24), 45, 22, 50));
         scene.geometries.add(new Tree(new Point(-265, 158, 22), 38, 24, 60));
         scene.geometries.add(new Tree(new Point(-285, 173, 20), 35, 20, 20));
         scene.geometries.add(new Tree(new Point(-300, 185, 15), 37, 18, 70));
@@ -78,9 +77,15 @@ public class CampfireTests {
         scene.geometries.add(new Tree(new Point(0, 300, 25), 40, 20, 30));
         scene.geometries.add(new Tree(new Point(26, 295, 17), 35, 25, 0));*/
 
-//        scene.geometries.add(new Tree(new Point(65, 15, 30), 45, 22, 30));
+        //scene.geometries.add(new Tree(new Point(65, 15, 30), 45, 30, 30));
 
-        scene.lights.add(new SpotLight(new Color(255, 255, 255), new Point(0, -50, 80), new Vector(-1, 0.5, -1)));
+       scene.geometries.add(new Forest(new Point(-100, 0, 20), 100, 300, 7, 3, -0.8));
+       scene.geometries.add(new Forest(new Point(-250, 350, 20), 100, 300, 6, 3, Math.PI/2));
+       scene.geometries.add(new Forest(new Point(-70, 100, 20), 60, 350, 6, 2, Math.PI/2));
+       scene.geometries.add(new Forest(new Point(0, 100, 20), 500, 300, 8, 6, 0));
+       scene.geometries.add(new Forest(new Point(70, 80, 20), 100, 150, 4, 2, 1.5));
+
+        //scene.lights.add(new SpotLight(new Color(255, 255, 255), new Point(0, -50, 80), new Vector(-1, 0.5, -1)));
 
         //sky
         Triangle sky1 = new Triangle(new Point(-850,500, -100), new Point(850, 500, -100), new Point(-850, 500, 900));
@@ -123,8 +128,9 @@ public class CampfireTests {
         //scene.geometries.add(new TreeLog(r, 3, 45));
 
         //fire
-        //scene.geometries.add(new Fire(new Point(0, 40, -37), 12, 90));
-        //scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 50)).setKl(0.00001).setKq(0.0002));
+        scene.geometries.add(new Fire(new Point(0, 40, -37), 12, 90));
+        scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 100)).setKl(0.00001).setKq(0.0001));
+        scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 50)).setKl(0.001).setKq(0.001));
 
         ImageWriter imageWriter = new ImageWriter("pyramid", 500, 500);
         camera.setImageWriter(imageWriter) //
