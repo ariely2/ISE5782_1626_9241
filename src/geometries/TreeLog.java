@@ -15,10 +15,10 @@ public class TreeLog extends Geometries{
      */
     public TreeLog(Ray ray, double radius, double height) {
         super();
-        Color color = new Color(101, 56, 24);
+        Color color = new Color(54,21,9);
         Cylinder c = new Cylinder(ray, radius, height);
         c.setEmission(color);
-        Material wood = new Material().setKd(0.5).setKs(0.01);
+        Material wood = new Material().setKd(0.55).setKs(0.01);
         add(c.setMaterial(wood));
 
         Circle a = new Circle(ray.getP0(), ray.getDir(), radius); //circles to seal the edges

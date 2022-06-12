@@ -47,11 +47,26 @@ public class RayTracerBasic extends RayTracerBase {
                 .add(scene.ambientLight.getIntensity());
     }
 
+    /**
+     * calc color of point: local effects+global effects
+     * @param intersection - point
+     * @param ray - viewing direction
+     * @param level - recursion level
+     * @param k - const for help
+     * @return
+     */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(intersection, ray, k);
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray.getDir(), level, k));
     }
 
+    /**
+     * calc color of local effects: point geometry emission + light and shadows
+     * @param intersection
+     * @param ray
+     * @param k
+     * @return color of local effects
+     */
      private Color calcLocalEffects(GeoPoint intersection, Ray ray, Double3 k) {
         Vector v = ray.getDir();
         Vector n = intersection.geometry.getNormal(intersection.point);
@@ -67,11 +82,11 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
              double nl = alignZero(l.dotProduct(n)); //without these two a test fails.
              if (nl * nv > 0) { // sign(nl) == sign(nv)
-                Double3 ktr = calcKtr(intersection.point, lightSource, l, n, nv);
+                Double3 ktr = calcKtr(intersection.point, lightSource, l, n, nv); //getting value of un-shading
                 if(!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) && !(ktr.product(k).equals(MIN_CALC_COLOR_K))) {
-                    Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
+                    Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr); //light color
                     color = color.add(calcDiffusive(kd, nl, lightIntensity),
-                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //color of light effects on point
                 }
             }
          }
@@ -108,6 +123,14 @@ public class RayTracerBasic extends RayTracerBase {
         return res.reduce(nR); //getting average ktr
     }
 
+    /**
+     * color of global effects: reflection and refraction
+     * @param gp - point
+     * @param v - viewing direction
+     * @param level - recursion level
+     * @param k - const helper
+     * @return color of global effects
+     */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, Double3 k) {
         Color color = Color.BLACK; Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();

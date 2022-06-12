@@ -20,90 +20,31 @@ public class CampfireTests {
     {
         //Camera camera = new Camera(new Point(0, -50, 50), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
           //      .setVPSize(150, 150).setVPDistance(50);
-        Camera camera = new Camera(new Point(0, -30, 10), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
+        Camera camera = new Camera(new Point(0, -10, 10), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
               .setVPSize(150, 150).setVPDistance(50);
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
 
-       // scene.lights.add( //
-         //       new SpotLight(new Color(255, 255, 255), new Point(-30, -50, 50), new Vector(0,1,0)) //
-           //             .setKl(0.0004).setKq(0.00006));
-
+        camera.setAntiAliasing(true);
         //trees
-        /*scene.geometries.add(new Tree(new Point(-55, 10, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-85, 15, 19), 37, 18, 40));
-        scene.geometries.add(new Tree(new Point(-85, 45, 22), 42, 20, 70));
-        scene.geometries.add(new Tree(new Point(-115, 25, 23), 30, 15, 10));
-        scene.geometries.add(new Tree(new Point(-100, 45, 25), 40, 20, 30));
-        scene.geometries.add(new Tree(new Point(-90, 56, 17), 35, 25, 0));
-        scene.geometries.add(new Tree(new Point(-120, 76, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-110, 66, 17), 39, 23, 45));
-
-        scene.geometries.add(new Tree(new Point(-95, 90, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-75, 99, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-50, 85, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-20, 100, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-25, 70, 25), 40, 20, 30));
-
-        scene.geometries.add(new Tree(new Point(-125, 96, 23), 35, 25, 0));
-        scene.geometries.add(new Tree(new Point(-140, 126, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-165, 115, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-195, 129, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-210, 121, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-200, 100, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-260, 130, 25), 40, 20, 30));
-
-        scene.geometries.add(new Tree(new Point(-250, 146, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-265, 158, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-285, 173, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-300, 185, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-215, 190, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-245, 200, 25), 40, 20, 30));
-        scene.geometries.add(new Tree(new Point(-310, 215, 17), 35, 25, 0));
-
-
-        scene.geometries.add(new Tree(new Point(-310, 300, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-335, 295, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-350, 275, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-381, 260, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(-400, 220, 25), 40, 20, 30));
-        scene.geometries.add(new Tree(new Point(-215, 305, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-240, 330, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-278, 315, 24), 42, 22, 50));
-        scene.geometries.add(new Tree(new Point(-299, 325, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-150, 310, 30), 45, 22, 30));
-        scene.geometries.add(new Tree(new Point(-185, 305, 15), 37, 18, 70));
-        scene.geometries.add(new Tree(new Point(-110, 330, 23), 35, 19, 10));
-        scene.geometries.add(new Tree(new Point(-75, 315, 24), 45, 22, 50));
-        scene.geometries.add(new Tree(new Point(-50, 325, 22), 38, 24, 60));
-        scene.geometries.add(new Tree(new Point(-31, 340, 20), 35, 20, 20));
-        scene.geometries.add(new Tree(new Point(0, 300, 25), 40, 20, 30));
-        scene.geometries.add(new Tree(new Point(26, 295, 17), 35, 25, 0));*/
-
-        //scene.geometries.add(new Tree(new Point(65, 15, 30), 45, 30, 30));
-
-       scene.geometries.add(new Forest(new Point(-80, -20, 20), 100, 300, 7, 3, -0.8));
-       //scene.geometries.add(new Forest(new Point(-70, 100, 20), 60, 350, 6, 2, Math.PI/2));
-       //scene.geometries.add(new Forest(new Point(0, 100, 20), 500, 300, 8, 6, 0));
-       //scene.geometries.add(new Forest(new Point(70, 80, 20), 100, 150, 4, 2, 1.5));
+       scene.geometries.add(new Forest(new Point(-100, 10, 18), 100, 300, 7, 3, -0.8));
+       scene.geometries.add(new Forest(new Point(-250, 350, 18), 100, 300, 6, 3, Math.PI/2));
+       scene.geometries.add(new Forest(new Point(-60, 100, 18), 60, 350, 6, 2, Math.PI/2));
+       scene.geometries.add(new Forest(new Point(0, 100, 18), 500, 300, 8, 6, 0));
+       scene.geometries.add(new Forest(new Point(30, 35, 18), 90, 60, 3, 3, 0));
+        //scene.geometries.add(new Forest(new Point(70, 40, 20), 100, 150, 4, 2, 1.5));
 
         //scene.lights.add(new SpotLight(new Color(255, 255, 255), new Point(0, -50, 80), new Vector(-1, 0.5, -1)));
 
         //sky
-        Triangle sky1 = new Triangle(new Point(-850,500, -100), new Point(850, 500, -100), new Point(-850, 500, 900));
-        Triangle sky2 = new Triangle(new Point(850,500, -100), new Point(-850, 500, 900), new Point(850, 500, 900));
+        Plane sky1 = new Plane(new Point(-850,500, -100), new Point(850, 500, -100), new Point(-850, 500, 900));
         Material sky = new Material().setKd(0.01);
         scene.geometries.add(sky1.setEmission(new Color(12, 20, 69)).setMaterial(sky));
-        scene.geometries.add(sky2.setEmission(new Color(12, 20, 69)).setMaterial(sky));
 
 
         //ground
-        Triangle surface1 = new Triangle(new Point(-100,0, -40), new Point(100, 0, -40), new Point(850, 500, -40));
-        Triangle surface2 = new Triangle(new Point(-100,0, -40), new Point(-850, 400, -40), new Point(850, 500, -40));
+        Plane surface1 = new Plane(new Point(-100,0, -40), new Point(100, 0, -40), new Point(850, 500, -40));
         Material surface = new Material().setKd(0.2);
         scene.geometries.add(surface1.setEmission(new Color(58, 46, 39)).setMaterial(surface));
-        scene.geometries.add(surface2.setEmission(new Color(58, 46, 39)).setMaterial(surface));
-
-
 
         //mountains
         Triangle mountain1 = new Triangle(new Point(-700, 400, -40), new Point(0, 400, -40), new Point(-350, 400, 300));
@@ -124,16 +65,24 @@ public class CampfireTests {
         Material water = new Material().setKs(0.8).setShininess(30);
         Circle lake = new Circle(new Point(-100, 200, -39), new Vector(0, 0, 1), 75);
         scene.geometries.add(lake.setEmission(new Color(73, 232, 255)).setMaterial(water));
+
         //tree logs
-       // Ray r = new Ray(new Point(30, 0, 0), new Vector(2, 1, 0));
-        //scene.geometries.add(new TreeLog(r, 3, 45));
+        Ray r1 = new Ray(new Point(-40, 30, -37), new Vector(1, 3, 0));
+        Ray r2 = new Ray(new Point(20, 30, -37), new Vector(-1, 3, 0));
+
+        scene.geometries.add(new TreeLog(r1, 5, 25));
+        scene.geometries.add(new TreeLog(r2, 5, 25));
+
 
         //fire
-        //scene.geometries.add(new Fire(new Point(0, 40, -37), 12, 90));
-        //scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 100)).setKl(0.00001).setKq(0.0001));
-        //scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 50)).setKl(0.0001).setKq(0.0001));
+        scene.geometries.add(new Fire(new Point(-10, 40, -37), 12, 90));
+        scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 100), 25, 9).setKl(0.00001).setKq(0.0001));
+        scene.lights.add(new PointLight(new Color(255, 255, 255), new Point(0, -50, 50), 25, 9).setKl(0.0001).setKq(0.0001));
 
-        ImageWriter imageWriter = new ImageWriter("pyramid", 500, 500);
+        camera.setRezInX(9);
+        camera.setRezInY(9);
+
+        ImageWriter imageWriter = new ImageWriter("finalpic", 500, 500);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage(); //
