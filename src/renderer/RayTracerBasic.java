@@ -23,18 +23,30 @@ public class RayTracerBasic extends RayTracerBase {
         super(a);
     }
 
+    /**
+     * trace ray to get a pixel's color, based on local and global effects
+     * @param ray - ray from pixel
+     * @return pixel's color
+     */
     @Override
     public Color traceRay(Ray ray) {
         GeoPoint closestIntersection = findClosestIntersection(ray);
         if(closestIntersection == null)
             return scene.background;
-        return calcColor(closestIntersection, ray);
+        return calcColor(closestIntersection, ray); //getting the color of intersection point
     }
 
+    /**
+     * calc the color of a geopoint, also based on the direction from viewpoint to the geopoint
+     * @param intersection - the point
+     * @param ray - viewing direction
+     * @return color of point when looking at it from viewpoint
+     */
     private Color calcColor(GeoPoint intersection, Ray ray) {
         return calcColor(intersection, ray, MAX_CALC_COLOR_LEVEL , new Double3(INITIAL_K))
                 .add(scene.ambientLight.getIntensity());
     }
+
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(intersection, ray, k);
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray.getDir(), level, k));
@@ -78,22 +90,22 @@ public class RayTracerBasic extends RayTracerBase {
     private Double3 calcKtr(Point point, LightSource ls, Vector l, Vector n, double nv)
     {
         int nR = ls.getNr();
-        if(nR < 2 || ls.getPosition() == null)
+        if(nR < 2 || ls.getPosition() == null) //soft shadow isn't activated
                 return transparency(point, ls, l, n, null);
 
         LinkedList<Point> points;
         if(ls.getClass() == PointLight.class)
-                points = ((PointLight) ls).getPoints();
+                points = ((PointLight) ls).getPoints(); //getting random points on light source area
         else
             points = ((SpotLight)ls).getPoints();
         Double3 res = Double3.ZERO;
-        for (Point p: points) {
+        for (Point p: points) { //getting ktr for each point
             Vector m = point.subtract(p).normalize();
             double nl = alignZero(n.dotProduct(m));
             if (nl*nv > 0)  // sign(nl) == sing(nv)
                 res = res.add(transparency(point, ls, m, n, p)); //same n?
         }
-        return res.reduce(nR);
+        return res.reduce(nR); //getting average ktr
     }
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, Double3 k) {
@@ -163,7 +175,7 @@ public class RayTracerBasic extends RayTracerBase {
         List<Intersectable.GeoPoint> a = scene.geometries.findGeoIntersections(ray); //find all Intersections
         if (a == null) // if there is no intersection
             return null;
-        return ray.getClosestGeoPoint(a); //find the closes one
+        return ray.getClosestGeoPoint(a); //find the closest one
     }
 
     private Ray constructReflectedRay(Point p, Vector v, Vector n) {

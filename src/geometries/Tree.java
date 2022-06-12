@@ -22,7 +22,7 @@ public class Tree extends Geometries{
     {
         super();
         Material foliage = new Material().setKd(0.4).setKs(0.3).setShininess(20);
-        Color color = new Color(0, 50 +Util.random(0, 130), 0);
+        Color color = new Color(0, 30 +Util.random(0, 110), 0);
         Material wood = new Material().setKd(0.001).setKs(0.1);
         for(int i = 0; i < 3; i++)
         {

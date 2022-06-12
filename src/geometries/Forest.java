@@ -8,7 +8,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class Forest extends Geometries{
-
+//maybe add as a function in Tree?
     public Forest(Point start, double w, double h, int rows, int cols, double rotate)
     {
         double xd = w/cols;
