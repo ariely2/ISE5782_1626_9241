@@ -21,6 +21,7 @@ public class Sphere extends Geometry{
     public Sphere(Point c, double r) {
         center = c;
         radius = r;
+        box = createBox();
     }
 
     public Point getCenter() {
@@ -77,5 +78,13 @@ public class Sphere extends Geometry{
         return null;
     }
 
+    public Box createBox()
+    {
+        Point min , max;
 
+        min = center.subtract(new Point(radius , radius , radius));
+        max = center.subtract(new Point(-radius , -radius , -radius));
+
+        return new Box(min , max);
+    }
 }

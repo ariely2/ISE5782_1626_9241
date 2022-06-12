@@ -7,8 +7,11 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.min;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
+
+import java.lang.Math.*;
 
 public class Cylinder extends Tube { // does it need to implement geometry?
     final double height;
@@ -29,6 +32,7 @@ public class Cylinder extends Tube { // does it need to implement geometry?
     {
         super(_ray, _radius);
         height = _height;
+        box = createBox();
     }
 
     public double getHeight() {
@@ -57,5 +61,28 @@ public class Cylinder extends Tube { // does it need to implement geometry?
         if (res.size() == 0)
             return null;
         return res;
+    }
+
+    public Box createBox() {
+        Box boxa , boxb;
+        Point min , max;
+
+        //create two spheres and calculate the min & max
+        Sphere a = new Sphere(axisRay.getP0() , radius);
+        Sphere b = new Sphere(axisRay.getPoint(height) , height);
+
+        boxa = a.createBox();
+        boxb = b.createBox();
+
+        if (boxa.getMin().getX() < boxb.getMin().getX()) {
+            min = boxa.getMin();
+            max = boxb.getMax();
+        }
+        else {
+            min = boxb.getMin();
+            max = boxa.getMax();
+        }
+
+        return new Box(min , max);
     }
 }

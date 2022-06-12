@@ -12,6 +12,7 @@ import primitives.Vector;
 public class Triangle extends Polygon{
     public Triangle(Point a, Point b, Point c) {
         super(a, b, c);
+        box = createBox();
     }
 
     @Override

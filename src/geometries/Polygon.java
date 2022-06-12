@@ -93,4 +93,29 @@ public class Polygon extends Geometry {
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 		return null;
 	}
+
+	public Box createBox() {
+		if (vertices.isEmpty()) return null;
+
+		double minx = vertices.get(0).getX();
+		double miny = vertices.get(0).getY();
+		double minz = vertices.get(0).getZ();
+
+		double maxx = vertices.get(0).getX();
+		double maxy = vertices.get(0).getY();
+		double maxz = vertices.get(0).getZ();
+
+		for (int i = 1 ; i < vertices.size(); i++)
+		{
+			minx = java.lang.Math.min(vertices.get(i).getX() , minx);
+			miny = java.lang.Math.min(vertices.get(i).getY() , miny);
+			minz = java.lang.Math.min(vertices.get(i).getZ() , minz);
+
+			maxx = java.lang.Math.max(vertices.get(i).getX() , maxx);
+			maxy = java.lang.Math.max(vertices.get(i).getY() , maxy);
+			maxz = java.lang.Math.max(vertices.get(i).getZ() , maxz);
+		}
+
+		return new Box(new Point(minx , miny , minz) , new Point(maxx , maxy , maxz));
+	}
 }

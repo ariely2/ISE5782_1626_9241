@@ -29,4 +29,7 @@ public class TreeLog extends Geometries{
         add(a.setMaterial(wood));
         add(b.setMaterial(wood));
     }
+    public Box createBox() {
+        return null;
+    }
 }

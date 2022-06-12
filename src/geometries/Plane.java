@@ -48,6 +48,11 @@ public class Plane extends Geometry{
     }
 
     @Override
+    public Box createBox() {
+        return null;
+    }
+
+    @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         double numerator = normal.dotProduct(getPoint().subtract(ray.getP0()));
         double denominator = normal.dotProduct(ray.getDir());
