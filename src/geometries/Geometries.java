@@ -11,25 +11,17 @@ import static java.lang.System.in;
 
 public class Geometries extends Intersectable{
     private final List<Intersectable> shapes;
-    private final List<Intersectable> InfinityShapes;
 
     public Geometries() {
-        this.InfinityShapes = new ArrayList<>();
         this.shapes = new ArrayList<>();
-        box = createBox();
+        if (box == null)
+            box = createBox();
     }
 
     public Geometries(Intersectable...geometries) {
-        this.shapes = new ArrayList<>(); //correct?
-        this.InfinityShapes = new ArrayList<>();
-        for (Intersectable shape: geometries) {
-            if (shape.getBox() == null){
-                InfinityShapes.add(shape);
-            }
-            else
-                shapes.add(shape);
-        }
-        box = createBox();
+        this.shapes = List.of(geometries);
+        if (box == null)
+            box = createBox();
     }
 
     public void add(Intersectable... geometries){
@@ -52,6 +44,8 @@ public class Geometries extends Intersectable{
         double maxz = helpmax.getZ();
         if (shapes.size() > 1) {
             for (int i = 1; i < shapes.size(); i++) {
+                if (shapes.get(i).getBox() == null)
+                    return null;
                 helpmin = shapes.get(i).getBox().getMin();
                 minx = java.lang.Math.min(helpmin.getX(), minx);
                 miny = java.lang.Math.min(helpmin.getY(), miny);
@@ -69,14 +63,9 @@ public class Geometries extends Intersectable{
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        /*if (createBox() != null)
+            box = createBox();*/
         List<GeoPoint> cut = new ArrayList<>(1);
-        for (Intersectable Infinityshape : InfinityShapes) {
-            var intersections = Infinityshape.findGeoIntersectionsHelper(ray, maxDistance);
-            if (intersections != null) {
-                List<GeoPoint> p = intersections;
-                cut.addAll(p);
-            }
-        }
         if (box == null ||box.ifHaveIntersection(ray)){
             for (Intersectable shape : shapes) {
                 var intersections = shape.findGeoIntersectionsHelper(ray, maxDistance);

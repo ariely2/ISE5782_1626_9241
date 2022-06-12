@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Ariel
  */
 public abstract class Intersectable {
-    public Box box;
+    public Box box = null;
     public static class GeoPoint {
         public final Geometry geometry;
         public final Point point;
